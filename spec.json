@@ -1,7 +1,7 @@
 {
-    "version": "4.9",
-    "releaseDate": "June 4, 2020",
-    "link": "https://core.telegram.org/bots/api-changelog#june-4-2020",
+    "version": "5.0",
+    "releaseDate": "November 4, 2020",
+    "link": "https://core.telegram.org/bots/api-changelog#november-4-2020",
     "types": {
         "Animation": {
             "category": "available-types",
@@ -106,6 +106,14 @@
                     "optional": false
                 },
                 {
+                    "name": "file_name",
+                    "description": "Optional. Original filename as defined by sender",
+                    "types": [
+                        "string"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "file_size",
                     "description": "Optional. File size",
                     "types": [
@@ -183,13 +191,13 @@
             "category": "games",
             "name": "CallbackGame",
             "link": "https://core.telegram.org/bots/api#callbackgame",
-            "description": "A placeholder, currently holds no information. Use [BotFather](https://web.archive.org/web/20201103003825/https://t.me/botfather) to set up your game."
+            "description": "A placeholder, currently holds no information. Use [BotFather](https://web.archive.org/web/20210301095052/https://t.me/botfather) to set up your game."
         },
         "CallbackQuery": {
             "category": "available-types",
             "name": "CallbackQuery",
             "link": "https://core.telegram.org/bots/api#callbackquery",
-            "description": "This object represents an incoming callback query from a callback button in an [inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). If the button that originated the query was attached to a message sent by the bot, the field message will be present. If the button was attached to a message sent via the bot (in [inline mode](https://core.telegram.org/bots/api#inline-mode)), the field inline_message_id will be present. Exactly one of the fields data or game_short_name will be present.",
+            "description": "This object represents an incoming callback query from a callback button in an [inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). If the button that originated the query was attached to a message sent by the bot, the field message will be present. If the button was attached to a message sent via the bot (in [inline mode](https://core.telegram.org/bots/api#inline-mode)), the field inline_message_id will be present. Exactly one of the fields data or game_short_name will be present.",
             "properties": [
                 {
                     "name": "chat_instance",
@@ -256,6 +264,14 @@
             "description": "This object represents a chat.",
             "properties": [
                 {
+                    "name": "bio",
+                    "description": "Optional. Bio of the other party in a private chat. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
+                    "types": [
+                        "string"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "can_set_sticker_set",
                     "description": "Optional. True, if the bot can change the group sticker set. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
                     "types": [
@@ -304,6 +320,22 @@
                     "optional": true
                 },
                 {
+                    "name": "linked_chat_id",
+                    "description": "Optional. Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
+                    "types": [
+                        "int32"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "location",
+                    "description": "Optional. For supergroups, the location to which the supergroup is connected. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
+                    "types": [
+                        "ChatLocation"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "permissions",
                     "description": "Optional. Default chat member permissions, for groups and supergroups. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
                     "types": [
@@ -321,7 +353,7 @@
                 },
                 {
                     "name": "pinned_message",
-                    "description": "Optional. Pinned message, for groups, supergroups and channels. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
+                    "description": "Optional. The most recent pinned message (by sending date). Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
                     "types": [
                         "Message"
                     ],
@@ -366,6 +398,30 @@
                         "string"
                     ],
                     "optional": true
+                }
+            ]
+        },
+        "ChatLocation": {
+            "category": "available-types",
+            "name": "ChatLocation",
+            "link": "https://core.telegram.org/bots/api#chatlocation",
+            "description": "Represents a location to which a chat is connected.",
+            "properties": [
+                {
+                    "name": "address",
+                    "description": "Location address; 1-64 characters, as defined by the chat owner",
+                    "types": [
+                        "string"
+                    ],
+                    "optional": false
+                },
+                {
+                    "name": "location",
+                    "description": "The location to which the supergroup is connected. Can't be a live location.",
+                    "types": [
+                        "Location"
+                    ],
+                    "optional": false
                 }
             ]
         },
@@ -492,6 +548,14 @@
                     "description": "Optional. Owner and administrators only. Custom title for this user",
                     "types": [
                         "string"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "is_anonymous",
+                    "description": "Optional. Owner and administrators only. True, if the user's presence in the chat is hidden",
+                    "types": [
+                        "boolean"
                     ],
                     "optional": true
                 },
@@ -645,7 +709,7 @@
             "category": "inline-mode",
             "name": "ChosenInlineResult",
             "link": "https://core.telegram.org/bots/api#choseninlineresult",
-            "description": "Represents a [result](https://core.telegram.org/bots/api#inlinequeryresult) of an inline query that was chosen by the user and sent to their chat partner.\nNote: It is necessary to enable [inline feedback](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots/inline#collecting-feedback) via [@Botfather](https://web.archive.org/web/20201103003825/https://t.me/botfather) in order to receive these objects in updates.",
+            "description": "Represents a [result](https://core.telegram.org/bots/api#inlinequeryresult) of an inline query that was chosen by the user and sent to their chat partner.\nNote: It is necessary to enable [inline feedback](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots/inline#collecting-feedback) via [@Botfather](https://web.archive.org/web/20210301095052/https://t.me/botfather) in order to receive these objects in updates.",
             "properties": [
                 {
                     "name": "from",
@@ -729,7 +793,7 @@
                 },
                 {
                     "name": "vcard",
-                    "description": "Optional. Additional data about the contact in the form of a [vCard](https://web.archive.org/web/20201103003825/https://en.wikipedia.org/wiki/VCard)",
+                    "description": "Optional. Additional data about the contact in the form of a [vCard](https://web.archive.org/web/20210301095052/https://en.wikipedia.org/wiki/VCard)",
                     "types": [
                         "string"
                     ],
@@ -753,7 +817,7 @@
                 },
                 {
                     "name": "value",
-                    "description": "Value of the dice, 1-6 for “” and “” base emoji, 1-5 for “” base emoji",
+                    "description": "Value of the dice, 1-6 for “” and “” base emoji, 1-5 for “” and “” base emoji, 1-64 for “” base emoji",
                     "types": [
                         "int32"
                     ],
@@ -821,7 +885,7 @@
             "category": "telegram-passport",
             "name": "EncryptedCredentials",
             "link": "https://core.telegram.org/bots/api#encryptedcredentials",
-            "description": "Contains data required for decrypting and authenticating [EncryptedPassportElement](https://core.telegram.org/bots/api#encryptedpassportelement). See the [Telegram Passport Documentation](https://web.archive.org/web/20201103003825/https://core.telegram.org/passport#receiving-information) for a complete description of the data decryption and authentication processes.",
+            "description": "Contains data required for decrypting and authenticating [EncryptedPassportElement](https://core.telegram.org/bots/api#encryptedpassportelement). See the [Telegram Passport Documentation](https://web.archive.org/web/20210301095052/https://core.telegram.org/passport#receiving-information) for a complete description of the data decryption and authentication processes.",
             "properties": [
                 {
                     "name": "data",
@@ -981,7 +1045,7 @@
             "category": "available-types",
             "name": "ForceReply",
             "link": "https://core.telegram.org/bots/api#forcereply",
-            "description": "Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice [privacy mode](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#privacy-mode).",
+            "description": "Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice [privacy mode](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#privacy-mode).",
             "properties": [
                 {
                     "name": "force_reply",
@@ -1009,7 +1073,7 @@
             "properties": [
                 {
                     "name": "animation",
-                    "description": "Optional. Animation that will be displayed in the game message in chats. Upload via [BotFather](https://web.archive.org/web/20201103003825/https://t.me/botfather)",
+                    "description": "Optional. Animation that will be displayed in the game message in chats. Upload via [BotFather](https://web.archive.org/web/20210301095052/https://t.me/botfather)",
                     "types": [
                         "Animation"
                     ],
@@ -1061,7 +1125,7 @@
             "category": "games",
             "name": "GameHighScore",
             "link": "https://core.telegram.org/bots/api#gamehighscore",
-            "description": "This object represents one row of the high scores table for a game.\nAnd that's about all we've got for now.If you've got any questions, please check out our [Bot FAQ »](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots/faq)",
+            "description": "This object represents one row of the high scores table for a game.\nAnd that's about all we've got for now.If you've got any questions, please check out our [Bot FAQ »](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots/faq)",
             "properties": [
                 {
                     "name": "position",
@@ -1113,7 +1177,7 @@
                 },
                 {
                     "name": "login_url",
-                    "description": "Optional. An HTTP URL used to automatically authorize the user. Can be used as a replacement for the [Telegram Login Widget](https://web.archive.org/web/20201103003825/https://core.telegram.org/widgets/login).",
+                    "description": "Optional. An HTTP URL used to automatically authorize the user. Can be used as a replacement for the [Telegram Login Widget](https://web.archive.org/web/20210301095052/https://core.telegram.org/widgets/login).",
                     "types": [
                         "LoginUrl"
                     ],
@@ -1129,7 +1193,7 @@
                 },
                 {
                     "name": "switch_inline_query",
-                    "description": "Optional. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. Can be empty, in which case just the bot's username will be inserted.Note: This offers an easy way for users to start using your bot in [inline mode](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots/inline) when they are currently in a private chat with it. Especially useful when combined with [switch_pm…](https://core.telegram.org/bots/api#answerinlinequery) actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen.",
+                    "description": "Optional. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. Can be empty, in which case just the bot's username will be inserted.Note: This offers an easy way for users to start using your bot in [inline mode](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots/inline) when they are currently in a private chat with it. Especially useful when combined with [switch_pm…](https://core.telegram.org/bots/api#answerinlinequery) actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen.",
                     "types": [
                         "string"
                     ],
@@ -1165,7 +1229,7 @@
             "category": "available-types",
             "name": "InlineKeyboardMarkup",
             "link": "https://core.telegram.org/bots/api#inlinekeyboardmarkup",
-            "description": "This object represents an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) that appears right next to the message it belongs to.\nNote: This will only work in Telegram versions released after 9 April, 2016. Older clients will display unsupported message.",
+            "description": "This object represents an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) that appears right next to the message it belongs to.\nNote: This will only work in Telegram versions released after 9 April, 2016. Older clients will display unsupported message.",
             "properties": [
                 {
                     "name": "inline_keyboard",
@@ -1294,7 +1358,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -1383,6 +1447,14 @@
                     "optional": true
                 },
                 {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "id",
                     "description": "Unique identifier for this result, 1-64 bytes",
                     "types": [
@@ -1416,7 +1488,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -1465,6 +1537,14 @@
                     "optional": true
                 },
                 {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "id",
                     "description": "Unique identifier for this result, 1-64 bytes",
                     "types": [
@@ -1490,7 +1570,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -1519,6 +1599,14 @@
                     "description": "Optional. Caption of the document to be sent, 0-1024 characters after entities parsing",
                     "types": [
                         "string"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
                     ],
                     "optional": true
                 },
@@ -1564,7 +1652,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -1605,6 +1693,14 @@
                     "optional": true
                 },
                 {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "gif_file_id",
                     "description": "A valid file identifier for the GIF file",
                     "types": [
@@ -1638,7 +1734,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -1679,6 +1775,14 @@
                     "optional": true
                 },
                 {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "id",
                     "description": "Unique identifier for this result, 1-64 bytes",
                     "types": [
@@ -1712,7 +1816,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -1749,6 +1853,14 @@
                     "description": "Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing",
                     "types": [
                         "string"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
                     ],
                     "optional": true
                 },
@@ -1794,7 +1906,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -1823,7 +1935,7 @@
             "category": "inline-mode",
             "name": "InlineQueryResultCachedSticker",
             "link": "https://core.telegram.org/bots/api#inlinequeryresultcachedsticker",
-            "description": "Represents a link to a sticker stored on the Telegram servers. By default, this sticker will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the sticker.\nNote: This will only work in Telegram versions released after 9 April, 2016 for static stickers and after 06 July, 2019 for [animated stickers](https://web.archive.org/web/20201103003825/https://telegram.org/blog/animated-stickers). Older clients will ignore them.",
+            "description": "Represents a link to a sticker stored on the Telegram servers. By default, this sticker will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the sticker.\nNote: This will only work in Telegram versions released after 9 April, 2016 for static stickers and after 06 July, 2019 for [animated stickers](https://web.archive.org/web/20210301095052/https://telegram.org/blog/animated-stickers). Older clients will ignore them.",
             "parent": "InlineQueryResult",
             "properties": [
                 {
@@ -1844,7 +1956,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -1885,6 +1997,14 @@
                     "optional": true
                 },
                 {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "description",
                     "description": "Optional. Short description of the result",
                     "types": [
@@ -1918,7 +2038,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -1967,6 +2087,14 @@
                     "optional": true
                 },
                 {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "id",
                     "description": "Unique identifier for this result, 1-64 bytes",
                     "types": [
@@ -1992,7 +2120,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -2074,7 +2202,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -2115,7 +2243,7 @@
                 },
                 {
                     "name": "vcard",
-                    "description": "Optional. Additional data about the contact in the form of a [vCard](https://web.archive.org/web/20201103003825/https://en.wikipedia.org/wiki/VCard), 0-2048 bytes",
+                    "description": "Optional. Additional data about the contact in the form of a [vCard](https://web.archive.org/web/20210301095052/https://en.wikipedia.org/wiki/VCard), 0-2048 bytes",
                     "types": [
                         "string"
                     ],
@@ -2135,6 +2263,14 @@
                     "description": "Optional. Caption of the document to be sent, 0-1024 characters after entities parsing",
                     "types": [
                         "string"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
                     ],
                     "optional": true
                 },
@@ -2262,7 +2398,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -2291,6 +2427,14 @@
                     "description": "Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing",
                     "types": [
                         "string"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
                     ],
                     "optional": true
                 },
@@ -2352,7 +2496,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -2401,6 +2545,22 @@
             "parent": "InlineQueryResult",
             "properties": [
                 {
+                    "name": "heading",
+                    "description": "Optional. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.",
+                    "types": [
+                        "int32"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "horizontal_accuracy",
+                    "description": "Optional. The radius of uncertainty for the location, measured in meters; 0-1500",
+                    "types": [
+                        "float"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "id",
                     "description": "Unique identifier for this result, 1-64 Bytes",
                     "types": [
@@ -2441,8 +2601,16 @@
                     "optional": false
                 },
                 {
+                    "name": "proximity_alert_radius",
+                    "description": "Optional. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.",
+                    "types": [
+                        "int32"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -2507,6 +2675,14 @@
                     "optional": true
                 },
                 {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "id",
                     "description": "Unique identifier for this result, 1-64 bytes",
                     "types": [
@@ -2564,7 +2740,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -2617,6 +2793,14 @@
                     "description": "Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing",
                     "types": [
                         "string"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
                     ],
                     "optional": true
                 },
@@ -2678,7 +2862,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -2743,6 +2927,22 @@
                     "optional": true
                 },
                 {
+                    "name": "google_place_id",
+                    "description": "Optional. Google Places identifier of the venue",
+                    "types": [
+                        "string"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "google_place_type",
+                    "description": "Optional. Google Places type of the venue. (See [supported types](https://web.archive.org/web/20210301095052/https://developers.google.com/places/web-service/supported_types).)",
+                    "types": [
+                        "string"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "id",
                     "description": "Unique identifier for this result, 1-64 Bytes",
                     "types": [
@@ -2776,7 +2976,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -2841,6 +3041,14 @@
                     "optional": true
                 },
                 {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "description",
                     "description": "Optional. Short description of the result",
                     "types": [
@@ -2882,7 +3090,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -2963,6 +3171,14 @@
                     "optional": true
                 },
                 {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "id",
                     "description": "Unique identifier for this result, 1-64 bytes",
                     "types": [
@@ -2988,7 +3204,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
+                    "description": "Optional. [Inline keyboard](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message",
                     "types": [
                         "InlineKeyboardMarkup"
                     ],
@@ -3062,7 +3278,7 @@
                 },
                 {
                     "name": "vcard",
-                    "description": "Optional. Additional data about the contact in the form of a [vCard](https://web.archive.org/web/20201103003825/https://en.wikipedia.org/wiki/VCard), 0-2048 bytes",
+                    "description": "Optional. Additional data about the contact in the form of a [vCard](https://web.archive.org/web/20210301095052/https://en.wikipedia.org/wiki/VCard), 0-2048 bytes",
                     "types": [
                         "string"
                     ],
@@ -3083,6 +3299,22 @@
             "description": "Represents the [content](https://core.telegram.org/bots/api#inputmessagecontent) of a location message to be sent as the result of an inline query.",
             "parent": "InputMessageContent",
             "properties": [
+                {
+                    "name": "heading",
+                    "description": "Optional. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.",
+                    "types": [
+                        "int32"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "horizontal_accuracy",
+                    "description": "Optional. The radius of uncertainty for the location, measured in meters; 0-1500",
+                    "types": [
+                        "float"
+                    ],
+                    "optional": true
+                },
                 {
                     "name": "latitude",
                     "description": "Latitude of the location in degrees",
@@ -3106,6 +3338,14 @@
                         "float"
                     ],
                     "optional": false
+                },
+                {
+                    "name": "proximity_alert_radius",
+                    "description": "Optional. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.",
+                    "types": [
+                        "int32"
+                    ],
+                    "optional": true
                 }
             ]
         },
@@ -3134,6 +3374,14 @@
                     "description": "Optional. Caption of the animation to be sent, 0-1024 characters after entities parsing",
                     "types": [
                         "string"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
                     ],
                     "optional": true
                 },
@@ -3213,6 +3461,14 @@
                     "optional": true
                 },
                 {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "duration",
                     "description": "Optional. Duration of the audio in seconds",
                     "types": [
@@ -3288,6 +3544,22 @@
                     "optional": true
                 },
                 {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "disable_content_type_detection",
+                    "description": "Optional. Disables automatic server-side content type detection for files uploaded using multipart/form-data. Always true, if the document is sent as part of an album.",
+                    "types": [
+                        "boolean"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "media",
                     "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://\u003cfile_attach_name\u003e” to upload a new one using multipart/form-data under \u003cfile_attach_name\u003e name. [More info on Sending Files »](https://core.telegram.org/bots/api#sending-files)",
                     "types": [
@@ -3339,6 +3611,14 @@
                     "optional": true
                 },
                 {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "media",
                     "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://\u003cfile_attach_name\u003e” to upload a new one using multipart/form-data under \u003cfile_attach_name\u003e name. [More info on Sending Files »](https://core.telegram.org/bots/api#sending-files)",
                     "types": [
@@ -3377,6 +3657,14 @@
                     "description": "Optional. Caption of the video to be sent, 0-1024 characters after entities parsing",
                     "types": [
                         "string"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "caption_entities",
+                    "description": "Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
                     ],
                     "optional": true
                 },
@@ -3476,6 +3764,14 @@
                     "optional": true
                 },
                 {
+                    "name": "entities",
+                    "description": "Optional. List of special entities that appear in message text, which can be specified instead of parse_mode",
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "message_text",
                     "description": "Text of the message to be sent, 1-4096 characters",
                     "types": [
@@ -3525,6 +3821,22 @@
                     "optional": true
                 },
                 {
+                    "name": "google_place_id",
+                    "description": "Optional. Google Places identifier of the venue",
+                    "types": [
+                        "string"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "google_place_type",
+                    "description": "Optional. Google Places type of the venue. (See [supported types](https://web.archive.org/web/20210301095052/https://developers.google.com/places/web-service/supported_types).)",
+                    "types": [
+                        "string"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "latitude",
                     "description": "Latitude of the venue in degrees",
                     "types": [
@@ -3558,7 +3870,7 @@
             "properties": [
                 {
                     "name": "currency",
-                    "description": "Three-letter ISO 4217 [currency](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots/payments#supported-currencies) code",
+                    "description": "Three-letter ISO 4217 [currency](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots/payments#supported-currencies) code",
                     "types": [
                         "string"
                     ],
@@ -3590,7 +3902,7 @@
                 },
                 {
                     "name": "total_amount",
-                    "description": "Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).",
+                    "description": "Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).",
                     "types": [
                         "int32"
                     ],
@@ -3662,7 +3974,7 @@
             "properties": [
                 {
                     "name": "amount",
-                    "description": "Price of the product in the smallest units of the [currency](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots/payments#supported-currencies) (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).",
+                    "description": "Price of the product in the smallest units of the [currency](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots/payments#supported-currencies) (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).",
                     "types": [
                         "int32"
                     ],
@@ -3685,6 +3997,22 @@
             "description": "This object represents a point on the map.",
             "properties": [
                 {
+                    "name": "heading",
+                    "description": "Optional. The direction in which user is moving, in degrees; 1-360. For active live locations only.",
+                    "types": [
+                        "int32"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "horizontal_accuracy",
+                    "description": "Optional. The radius of uncertainty for the location, measured in meters; 0-1500",
+                    "types": [
+                        "float"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "latitude",
                     "description": "Latitude as defined by sender",
                     "types": [
@@ -3693,12 +4021,28 @@
                     "optional": false
                 },
                 {
+                    "name": "live_period",
+                    "description": "Optional. Time relative to the message sending date, during which the location can be updated, in seconds. For active live locations only.",
+                    "types": [
+                        "int32"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "longitude",
                     "description": "Longitude as defined by sender",
                     "types": [
                         "float"
                     ],
                     "optional": false
+                },
+                {
+                    "name": "proximity_alert_radius",
+                    "description": "Optional. Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only.",
+                    "types": [
+                        "int32"
+                    ],
+                    "optional": true
                 }
             ]
         },
@@ -3706,11 +4050,11 @@
             "category": "available-types",
             "name": "LoginUrl",
             "link": "https://core.telegram.org/bots/api#loginurl",
-            "description": "This object represents a parameter of the inline keyboard button used to automatically authorize a user. Serves as a great replacement for the [Telegram Login Widget](https://web.archive.org/web/20201103003825/https://core.telegram.org/widgets/login) when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in:\nTelegram apps support these buttons as of [version 5.7](https://web.archive.org/web/20201103003825/https://telegram.org/blog/privacy-discussions-web-bots#meet-seamless-web-bots).",
+            "description": "This object represents a parameter of the inline keyboard button used to automatically authorize a user. Serves as a great replacement for the [Telegram Login Widget](https://web.archive.org/web/20210301095052/https://core.telegram.org/widgets/login) when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in:\nTelegram apps support these buttons as of [version 5.7](https://web.archive.org/web/20210301095052/https://telegram.org/blog/privacy-discussions-web-bots#meet-seamless-web-bots).",
             "properties": [
                 {
                     "name": "bot_username",
-                    "description": "Optional. Username of a bot, which will be used for user authorization. See [Setting up a bot](https://web.archive.org/web/20201103003825/https://core.telegram.org/widgets/login#setting-up-a-bot) for more details. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See [Linking your domain to the bot](https://web.archive.org/web/20201103003825/https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot) for more details.",
+                    "description": "Optional. Username of a bot, which will be used for user authorization. See [Setting up a bot](https://web.archive.org/web/20210301095052/https://core.telegram.org/widgets/login#setting-up-a-bot) for more details. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See [Linking your domain to the bot](https://web.archive.org/web/20210301095052/https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot) for more details.",
                     "types": [
                         "string"
                     ],
@@ -3734,7 +4078,7 @@
                 },
                 {
                     "name": "url",
-                    "description": "An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in [Receiving authorization data](https://web.archive.org/web/20201103003825/https://core.telegram.org/widgets/login#receiving-authorization-data).NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in [Checking authorization](https://web.archive.org/web/20201103003825/https://core.telegram.org/widgets/login#checking-authorization).",
+                    "description": "An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in [Receiving authorization data](https://web.archive.org/web/20210301095052/https://core.telegram.org/widgets/login#receiving-authorization-data).NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in [Checking authorization](https://web.archive.org/web/20210301095052/https://core.telegram.org/widgets/login#checking-authorization).",
                     "types": [
                         "string"
                     ],
@@ -3806,7 +4150,7 @@
                 },
                 {
                     "name": "author_signature",
-                    "description": "Optional. Signature of the post author for messages in channels",
+                    "description": "Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator",
                     "types": [
                         "string"
                     ],
@@ -3846,7 +4190,7 @@
                 },
                 {
                     "name": "connected_website",
-                    "description": "Optional. The domain name of the website on which the user has logged in. [More about Telegram Login »](https://core.telegram.org/web/20201103003825/https://core.telegram.org/widgets/login)",
+                    "description": "Optional. The domain name of the website on which the user has logged in. [More about Telegram Login »](https://core.telegram.org/web/20210301095052/https://core.telegram.org/widgets/login)",
                     "types": [
                         "string"
                     ],
@@ -3878,7 +4222,7 @@
                 },
                 {
                     "name": "dice",
-                    "description": "Optional. Message is a dice with random value from 1 to 6",
+                    "description": "Optional. Message is a dice with random value",
                     "types": [
                         "Dice"
                     ],
@@ -3926,7 +4270,7 @@
                 },
                 {
                     "name": "forward_from_chat",
-                    "description": "Optional. For messages forwarded from channels, information about the original channel",
+                    "description": "Optional. For messages forwarded from channels or from anonymous administrators, information about the original sender chat",
                     "types": [
                         "Chat"
                     ],
@@ -4093,6 +4437,14 @@
                     "optional": true
                 },
                 {
+                    "name": "proximity_alert_triggered",
+                    "description": "Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.",
+                    "types": [
+                        "ProximityAlertTriggered"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "reply_markup",
                     "description": "Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.",
                     "types": [
@@ -4105,6 +4457,14 @@
                     "description": "Optional. For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.",
                     "types": [
                         "Message"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "sender_chat",
+                    "description": "Optional. Sender of the message, sent on behalf of a chat. The channel itself for channel messages. The supergroup itself for messages from anonymous group administrators. The linked channel for messages automatically forwarded to the discussion group",
+                    "types": [
+                        "Chat"
                     ],
                     "optional": true
                 },
@@ -4166,7 +4526,7 @@
                 },
                 {
                     "name": "video_note",
-                    "description": "Optional. Message is a [video note](https://web.archive.org/web/20201103003825/https://telegram.org/blog/video-messages-and-telescope), information about the video message",
+                    "description": "Optional. Message is a [video note](https://web.archive.org/web/20210301095052/https://telegram.org/blog/video-messages-and-telescope), information about the video message",
                     "types": [
                         "VideoNote"
                     ],
@@ -4214,7 +4574,7 @@
                 },
                 {
                     "name": "type",
-                    "description": "Type of the entity. Can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users [without usernames](https://web.archive.org/web/20201103003825/https://telegram.org/blog/edit#new-mentions))",
+                    "description": "Type of the entity. Can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users [without usernames](https://web.archive.org/web/20210301095052/https://telegram.org/blog/edit#new-mentions))",
                     "types": [
                         "string"
                     ],
@@ -4235,6 +4595,22 @@
                         "User"
                     ],
                     "optional": true
+                }
+            ]
+        },
+        "MessageId": {
+            "category": "available-types",
+            "name": "MessageId",
+            "link": "https://core.telegram.org/bots/api#messageid",
+            "description": "This object represents a unique message identifier.",
+            "properties": [
+                {
+                    "name": "message_id",
+                    "description": "Unique message identifier",
+                    "types": [
+                        "int32"
+                    ],
+                    "optional": false
                 }
             ]
         },
@@ -4881,7 +5257,7 @@
                 },
                 {
                     "name": "question",
-                    "description": "Poll question, 1-255 characters",
+                    "description": "Poll question, 1-300 characters",
                     "types": [
                         "string"
                     ],
@@ -4969,7 +5345,7 @@
             "properties": [
                 {
                     "name": "currency",
-                    "description": "Three-letter ISO 4217 [currency](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots/payments#supported-currencies) code",
+                    "description": "Three-letter ISO 4217 [currency](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots/payments#supported-currencies) code",
                     "types": [
                         "string"
                     ],
@@ -5017,9 +5393,41 @@
                 },
                 {
                     "name": "total_amount",
-                    "description": "Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).",
+                    "description": "Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).",
                     "types": [
                         "int32"
+                    ],
+                    "optional": false
+                }
+            ]
+        },
+        "ProximityAlertTriggered": {
+            "category": "available-types",
+            "name": "ProximityAlertTriggered",
+            "link": "https://core.telegram.org/bots/api#proximityalerttriggered",
+            "description": "This object represents the content of a service message, sent whenever a user in the chat triggers a proximity alert set by another user.",
+            "properties": [
+                {
+                    "name": "distance",
+                    "description": "The distance between the users",
+                    "types": [
+                        "int32"
+                    ],
+                    "optional": false
+                },
+                {
+                    "name": "traveler",
+                    "description": "User that triggered the alert",
+                    "types": [
+                        "User"
+                    ],
+                    "optional": false
+                },
+                {
+                    "name": "watcher",
+                    "description": "User that set the alert",
+                    "types": [
+                        "User"
                     ],
                     "optional": false
                 }
@@ -5029,7 +5437,7 @@
             "category": "available-types",
             "name": "ReplyKeyboardMarkup",
             "link": "https://core.telegram.org/bots/api#replykeyboardmarkup",
-            "description": "This object represents a [custom keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards) with reply options (see [Introduction to bots](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards) for details and examples).",
+            "description": "This object represents a [custom keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards) with reply options (see [Introduction to bots](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards) for details and examples).",
             "properties": [
                 {
                     "name": "keyboard",
@@ -5289,7 +5697,7 @@
                 },
                 {
                     "name": "is_animated",
-                    "description": "True, if the sticker is [animated](https://web.archive.org/web/20201103003825/https://telegram.org/blog/animated-stickers)",
+                    "description": "True, if the sticker is [animated](https://web.archive.org/web/20210301095052/https://telegram.org/blog/animated-stickers)",
                     "types": [
                         "boolean"
                     ],
@@ -5345,7 +5753,7 @@
                 },
                 {
                     "name": "is_animated",
-                    "description": "True, if the sticker set contains [animated stickers](https://web.archive.org/web/20201103003825/https://telegram.org/blog/animated-stickers)",
+                    "description": "True, if the sticker set contains [animated stickers](https://web.archive.org/web/20210301095052/https://telegram.org/blog/animated-stickers)",
                     "types": [
                         "boolean"
                     ],
@@ -5393,7 +5801,7 @@
             "properties": [
                 {
                     "name": "currency",
-                    "description": "Three-letter ISO 4217 [currency](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots/payments#supported-currencies) code",
+                    "description": "Three-letter ISO 4217 [currency](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots/payments#supported-currencies) code",
                     "types": [
                         "string"
                     ],
@@ -5441,7 +5849,7 @@
                 },
                 {
                     "name": "total_amount",
-                    "description": "Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).",
+                    "description": "Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in [currencies.json](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).",
                     "types": [
                         "int32"
                     ],
@@ -5473,7 +5881,7 @@
                 },
                 {
                     "name": "chosen_inline_result",
-                    "description": "Optional. The result of an [inline](https://core.telegram.org/bots/api#inline-mode) query that was chosen by a user and sent to their chat partner. Please see our documentation on the [feedback collecting](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots/inline#collecting-feedback) for details on how to enable these updates for your bot.",
+                    "description": "Optional. The result of an [inline](https://core.telegram.org/bots/api#inline-mode) query that was chosen by a user and sent to their chat partner. Please see our documentation on the [feedback collecting](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots/inline#collecting-feedback) for details on how to enable these updates for your bot.",
                     "types": [
                         "ChosenInlineResult"
                     ],
@@ -5569,7 +5977,7 @@
                 },
                 {
                     "name": "can_read_all_group_messages",
-                    "description": "Optional. True, if [privacy mode](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#privacy-mode) is disabled for the bot. Returned only in [getMe](https://core.telegram.org/bots/api#getme).",
+                    "description": "Optional. True, if [privacy mode](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#privacy-mode) is disabled for the bot. Returned only in [getMe](https://core.telegram.org/bots/api#getme).",
                     "types": [
                         "boolean"
                     ],
@@ -5601,7 +6009,7 @@
                 },
                 {
                     "name": "language_code",
-                    "description": "Optional. [IETF language tag](https://web.archive.org/web/20201103003825/https://en.wikipedia.org/wiki/IETF_language_tag) of the user's language",
+                    "description": "Optional. [IETF language tag](https://web.archive.org/web/20210301095052/https://en.wikipedia.org/wiki/IETF_language_tag) of the user's language",
                     "types": [
                         "string"
                     ],
@@ -5688,8 +6096,24 @@
                     "optional": true
                 },
                 {
+                    "name": "google_place_id",
+                    "description": "Optional. Google Places identifier of the venue",
+                    "types": [
+                        "string"
+                    ],
+                    "optional": true
+                },
+                {
+                    "name": "google_place_type",
+                    "description": "Optional. Google Places type of the venue. (See [supported types](https://web.archive.org/web/20210301095052/https://developers.google.com/places/web-service/supported_types).)",
+                    "types": [
+                        "string"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "location",
-                    "description": "Venue location",
+                    "description": "Venue location. Can't be a live location",
                     "types": [
                         "Location"
                     ],
@@ -5726,6 +6150,14 @@
                         "string"
                     ],
                     "optional": false
+                },
+                {
+                    "name": "file_name",
+                    "description": "Optional. Original filename as defined by sender",
+                    "types": [
+                        "string"
+                    ],
+                    "optional": true
                 },
                 {
                     "name": "file_size",
@@ -5781,7 +6213,7 @@
             "category": "available-types",
             "name": "VideoNote",
             "link": "https://core.telegram.org/bots/api#videonote",
-            "description": "This object represents a [video message](https://web.archive.org/web/20201103003825/https://telegram.org/blog/video-messages-and-telescope) (available in Telegram apps as of [v.4.0](https://web.archive.org/web/20201103003825/https://telegram.org/blog/video-messages-and-telescope)).",
+            "description": "This object represents a [video message](https://web.archive.org/web/20210301095052/https://telegram.org/blog/video-messages-and-telescope) (available in Telegram apps as of [v.4.0](https://web.archive.org/web/20210301095052/https://telegram.org/blog/video-messages-and-telescope)).",
             "properties": [
                 {
                     "name": "duration",
@@ -5904,6 +6336,14 @@
                     "optional": false
                 },
                 {
+                    "name": "ip_address",
+                    "description": "Optional. Currently used webhook IP address",
+                    "types": [
+                        "string"
+                    ],
+                    "optional": true
+                },
+                {
                     "name": "last_error_date",
                     "description": "Optional. Unix time for the most recent error that happened when trying to deliver an update via webhook",
                     "types": [
@@ -5988,7 +6428,7 @@
                 },
                 {
                     "name": "tgs_sticker",
-                    "description": "TGS animation with the sticker, uploaded using multipart/form-data. See [](https://web.archive.org/web/20201103003825/https://core.telegram.org/animated_stickers#technical-requirements)[https://core.telegram.org/animated_stickers#technical-requirements](https://web.archive.org/web/20201103003825/https://core.telegram.org/animated_stickers#technical-requirements) for technical requirements",
+                    "description": "TGS animation with the sticker, uploaded using multipart/form-data. See [](https://web.archive.org/web/20210301095052/https://core.telegram.org/animated_stickers#technical-requirements)[https://core.telegram.org/animated_stickers#technical-requirements](https://web.archive.org/web/20210301095052/https://core.telegram.org/animated_stickers#technical-requirements) for technical requirements",
                     "required": false,
                     "types": [
                         "InputFile"
@@ -6011,7 +6451,7 @@
             "category": "available-methods",
             "name": "answerCallbackQuery",
             "link": "https://core.telegram.org/bots/api#answercallbackquery",
-            "description": "Use this method to send answers to callback queries sent from [inline keyboards](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.",
+            "description": "Use this method to send answers to callback queries sent from [inline keyboards](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.",
             "arguments": [
                 {
                     "name": "cache_time",
@@ -6047,7 +6487,7 @@
                 },
                 {
                     "name": "url",
-                    "description": "URL that will be opened by the user's client. If you have created a [Game](https://core.telegram.org/bots/api#game) and accepted the conditions via [@Botfather](https://web.archive.org/web/20201103003825/https://t.me/botfather), specify the URL that opens your game — note that this will only work if the query comes from a [callback_game](https://core.telegram.org/bots/api#inlinekeyboardbutton) button.Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.",
+                    "description": "URL that will be opened by the user's client. If you have created a [Game](https://core.telegram.org/bots/api#game) and accepted the conditions via [@Botfather](https://web.archive.org/web/20210301095052/https://t.me/botfather), specify the URL that opens your game — note that this will only work if the query comes from a [callback_game](https://core.telegram.org/bots/api#inlinekeyboardbutton) button.Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.",
                     "required": false,
                     "types": [
                         "string"
@@ -6106,7 +6546,7 @@
                 },
                 {
                     "name": "switch_pm_parameter",
-                    "description": "[Deep-linking](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots#deep-linking) parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an oauth link. Once done, the bot can offer a [switch_inline](https://core.telegram.org/bots/api#inlinekeyboardmarkup) button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.",
+                    "description": "[Deep-linking](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots#deep-linking) parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an oauth link. Once done, the bot can offer a [switch_inline](https://core.telegram.org/bots/api#inlinekeyboardmarkup) button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.",
                     "required": false,
                     "types": [
                         "string"
@@ -6203,6 +6643,111 @@
                 "boolean"
             ]
         },
+        "close": {
+            "category": "available-methods",
+            "name": "close",
+            "link": "https://core.telegram.org/bots/api#close",
+            "description": "Use this method to close the bot instance before moving it from one local server to another. You need to delete the webhook before calling this method to ensure that the bot isn't launched again after server restart. The method will return error 429 in the first 10 minutes after the bot is launched. Returns True on success. Requires no parameters.",
+            "returns": [
+                "boolean"
+            ]
+        },
+        "copyMessage": {
+            "category": "available-methods",
+            "name": "copyMessage",
+            "link": "https://core.telegram.org/bots/api#copymessage",
+            "description": "Use this method to copy messages of any kind. The method is analogous to the method [forwardMessages](https://core.telegram.org/bots/api#forwardmessages), but the copied message doesn't have a link to the original message. Returns the [MessageId](https://core.telegram.org/bots/api#messageid) of the sent message on success.",
+            "arguments": [
+                {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
+                    "name": "caption",
+                    "description": "New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept",
+                    "required": false,
+                    "types": [
+                        "string"
+                    ]
+                },
+                {
+                    "name": "caption_entities",
+                    "description": "List of special entities that appear in the new caption, which can be specified instead of parse_mode",
+                    "required": false,
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ]
+                },
+                {
+                    "name": "chat_id",
+                    "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
+                    "required": true,
+                    "types": [
+                        "int32",
+                        "string"
+                    ]
+                },
+                {
+                    "name": "disable_notification",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
+                    "name": "from_chat_id",
+                    "description": "Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)",
+                    "required": true,
+                    "types": [
+                        "int32",
+                        "string"
+                    ]
+                },
+                {
+                    "name": "message_id",
+                    "description": "Message identifier in the chat specified in from_chat_id",
+                    "required": true,
+                    "types": [
+                        "int32"
+                    ]
+                },
+                {
+                    "name": "parse_mode",
+                    "description": "Mode for parsing entities in the new caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.",
+                    "required": false,
+                    "types": [
+                        "string"
+                    ]
+                },
+                {
+                    "name": "reply_markup",
+                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                    "required": false,
+                    "types": [
+                        "ForceReply",
+                        "InlineKeyboardMarkup",
+                        "ReplyKeyboardMarkup",
+                        "ReplyKeyboardRemove"
+                    ]
+                },
+                {
+                    "name": "reply_to_message_id",
+                    "description": "If the message is a reply, ID of the original message",
+                    "required": false,
+                    "types": [
+                        "int32"
+                    ]
+                }
+            ],
+            "returns": [
+                "MessageId"
+            ]
+        },
         "createNewStickerSet": {
             "category": "stickers",
             "name": "createNewStickerSet",
@@ -6252,7 +6797,7 @@
                 },
                 {
                     "name": "tgs_sticker",
-                    "description": "TGS animation with the sticker, uploaded using multipart/form-data. See [](https://web.archive.org/web/20201103003825/https://core.telegram.org/animated_stickers#technical-requirements)[https://core.telegram.org/animated_stickers#technical-requirements](https://web.archive.org/web/20201103003825/https://core.telegram.org/animated_stickers#technical-requirements) for technical requirements",
+                    "description": "TGS animation with the sticker, uploaded using multipart/form-data. See [](https://web.archive.org/web/20210301095052/https://core.telegram.org/animated_stickers#technical-requirements)[https://core.telegram.org/animated_stickers#technical-requirements](https://web.archive.org/web/20210301095052/https://core.telegram.org/animated_stickers#technical-requirements) for technical requirements",
                     "required": false,
                     "types": [
                         "InputFile"
@@ -6370,7 +6915,17 @@
             "category": "getting-updates",
             "name": "deleteWebhook",
             "link": "https://core.telegram.org/bots/api#deletewebhook",
-            "description": "Use this method to remove webhook integration if you decide to switch back to [getUpdates](https://core.telegram.org/bots/api#getupdates). Returns True on success. Requires no parameters.",
+            "description": "Use this method to remove webhook integration if you decide to switch back to [getUpdates](https://core.telegram.org/bots/api#getupdates). Returns True on success.",
+            "arguments": [
+                {
+                    "name": "drop_pending_updates",
+                    "description": "Pass True to drop all pending updates",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                }
+            ],
             "returns": [
                 "boolean"
             ]
@@ -6379,7 +6934,7 @@
             "category": "updating-messages",
             "name": "editMessageCaption",
             "link": "https://core.telegram.org/bots/api#editmessagecaption",
-            "description": "Use this method to edit captions of messages. On success, if edited message is sent by the bot, the edited [Message](https://core.telegram.org/bots/api#message) is returned, otherwise True is returned.",
+            "description": "Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api#message) is returned, otherwise True is returned.",
             "arguments": [
                 {
                     "name": "caption",
@@ -6387,6 +6942,14 @@
                     "required": false,
                     "types": [
                         "string"
+                    ]
+                },
+                {
+                    "name": "caption_entities",
+                    "description": "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "required": false,
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
                     ]
                 },
                 {
@@ -6424,7 +6987,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).",
+                    "description": "A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).",
                     "required": false,
                     "types": [
                         "InlineKeyboardMarkup"
@@ -6440,7 +7003,7 @@
             "category": "available-methods",
             "name": "editMessageLiveLocation",
             "link": "https://core.telegram.org/bots/api#editmessagelivelocation",
-            "description": "Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to [stopMessageLiveLocation](https://core.telegram.org/bots/api#stopmessagelivelocation). On success, if the edited message was sent by the bot, the edited [Message](https://core.telegram.org/bots/api#message) is returned, otherwise True is returned.",
+            "description": "Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to [stopMessageLiveLocation](https://core.telegram.org/bots/api#stopmessagelivelocation). On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api#message) is returned, otherwise True is returned.",
             "arguments": [
                 {
                     "name": "chat_id",
@@ -6449,6 +7012,22 @@
                     "types": [
                         "int32",
                         "string"
+                    ]
+                },
+                {
+                    "name": "heading",
+                    "description": "Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.",
+                    "required": false,
+                    "types": [
+                        "int32"
+                    ]
+                },
+                {
+                    "name": "horizontal_accuracy",
+                    "description": "The radius of uncertainty for the location, measured in meters; 0-1500",
+                    "required": false,
+                    "types": [
+                        "float"
                     ]
                 },
                 {
@@ -6484,8 +7063,16 @@
                     ]
                 },
                 {
+                    "name": "proximity_alert_radius",
+                    "description": "Maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.",
+                    "required": false,
+                    "types": [
+                        "int32"
+                    ]
+                },
+                {
                     "name": "reply_markup",
-                    "description": "A JSON-serialized object for a new [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).",
+                    "description": "A JSON-serialized object for a new [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).",
                     "required": false,
                     "types": [
                         "InlineKeyboardMarkup"
@@ -6501,7 +7088,7 @@
             "category": "updating-messages",
             "name": "editMessageMedia",
             "link": "https://core.telegram.org/bots/api#editmessagemedia",
-            "description": "Use this method to edit animation, audio, document, photo, or video messages. If a message is a part of a message album, then it can be edited only to a photo or a video. Otherwise, message type can be changed arbitrarily. When inline message is edited, new file can't be uploaded. Use previously uploaded file via its file_id or specify a URL. On success, if the edited message was sent by the bot, the edited [Message](https://core.telegram.org/bots/api#message) is returned, otherwise True is returned.",
+            "description": "Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded. Use a previously uploaded file via its file_id or specify a URL. On success, if the edited message was sent by the bot, the edited [Message](https://core.telegram.org/bots/api#message) is returned, otherwise True is returned.",
             "arguments": [
                 {
                     "name": "chat_id",
@@ -6538,7 +7125,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "A JSON-serialized object for a new [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).",
+                    "description": "A JSON-serialized object for a new [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).",
                     "required": false,
                     "types": [
                         "InlineKeyboardMarkup"
@@ -6554,7 +7141,7 @@
             "category": "updating-messages",
             "name": "editMessageReplyMarkup",
             "link": "https://core.telegram.org/bots/api#editmessagereplymarkup",
-            "description": "Use this method to edit only the reply markup of messages. On success, if edited message is sent by the bot, the edited [Message](https://core.telegram.org/bots/api#message) is returned, otherwise True is returned.",
+            "description": "Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api#message) is returned, otherwise True is returned.",
             "arguments": [
                 {
                     "name": "chat_id",
@@ -6583,7 +7170,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).",
+                    "description": "A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).",
                     "required": false,
                     "types": [
                         "InlineKeyboardMarkup"
@@ -6599,7 +7186,7 @@
             "category": "updating-messages",
             "name": "editMessageText",
             "link": "https://core.telegram.org/bots/api#editmessagetext",
-            "description": "Use this method to edit text and [game](https://core.telegram.org/bots/api#games) messages. On success, if edited message is sent by the bot, the edited [Message](https://core.telegram.org/bots/api#message) is returned, otherwise True is returned.",
+            "description": "Use this method to edit text and [game](https://core.telegram.org/bots/api#games) messages. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api#message) is returned, otherwise True is returned.",
             "arguments": [
                 {
                     "name": "chat_id",
@@ -6616,6 +7203,14 @@
                     "required": false,
                     "types": [
                         "boolean"
+                    ]
+                },
+                {
+                    "name": "entities",
+                    "description": "List of special entities that appear in message text, which can be specified instead of parse_mode",
+                    "required": false,
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
                     ]
                 },
                 {
@@ -6644,7 +7239,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).",
+                    "description": "A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).",
                     "required": false,
                     "types": [
                         "InlineKeyboardMarkup"
@@ -6701,7 +7296,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -6920,7 +7515,7 @@
             "category": "getting-updates",
             "name": "getUpdates",
             "link": "https://core.telegram.org/bots/api#getupdates",
-            "description": "Use this method to receive incoming updates using long polling ([wiki](https://web.archive.org/web/20201103003825/https://en.wikipedia.org/wiki/Push_technology#Long_polling)). An Array of [Update](https://core.telegram.org/bots/api#update) objects is returned.",
+            "description": "Use this method to receive incoming updates using long polling ([wiki](https://web.archive.org/web/20210301095052/https://en.wikipedia.org/wiki/Push_technology#Long_polling)). An Array of [Update](https://core.telegram.org/bots/api#update) objects is returned.",
             "arguments": [
                 {
                     "name": "allowed_updates",
@@ -7007,7 +7602,7 @@
             "category": "available-methods",
             "name": "kickChatMember",
             "link": "https://core.telegram.org/bots/api#kickchatmember",
-            "description": "Use this method to kick a user from a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the group on their own using invite links, etc., unless [unbanned](https://core.telegram.org/bots/api#unbanchatmember) first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success.",
+            "description": "Use this method to kick a user from a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless [unbanned](https://core.telegram.org/bots/api#unbanchatmember) first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success.",
             "arguments": [
                 {
                     "name": "chat_id",
@@ -7020,7 +7615,7 @@
                 },
                 {
                     "name": "until_date",
-                    "description": "Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever",
+                    "description": "Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever. Applied for supergroups and channels only.",
                     "required": false,
                     "types": [
                         "int32"
@@ -7059,11 +7654,20 @@
                 "boolean"
             ]
         },
+        "logOut": {
+            "category": "available-methods",
+            "name": "logOut",
+            "link": "https://core.telegram.org/bots/api#logout",
+            "description": "Use this method to log out from the cloud Bot API server before launching the bot locally. You must log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates. After a successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 minutes. Returns True on success. Requires no parameters.",
+            "returns": [
+                "boolean"
+            ]
+        },
         "pinChatMessage": {
             "category": "available-methods",
             "name": "pinChatMessage",
             "link": "https://core.telegram.org/bots/api#pinchatmessage",
-            "description": "Use this method to pin a message in a group, a supergroup, or a channel. The bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in the supergroup or 'can_edit_messages' admin right in the channel. Returns True on success.",
+            "description": "Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 'can_edit_messages' admin right in a channel. Returns True on success.",
             "arguments": [
                 {
                     "name": "chat_id",
@@ -7076,7 +7680,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels.",
+                    "description": "Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -7175,6 +7779,14 @@
                     ]
                 },
                 {
+                    "name": "is_anonymous",
+                    "description": "Pass True, if the administrator's presence in the chat is hidden",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
                     "name": "user_id",
                     "description": "Unique identifier of the target user",
                     "required": true,
@@ -7238,6 +7850,14 @@
             "description": "Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned. Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future.",
             "arguments": [
                 {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
                     "name": "animation",
                     "description": "Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api#sending-files)",
                     "required": true,
@@ -7255,6 +7875,14 @@
                     ]
                 },
                 {
+                    "name": "caption_entities",
+                    "description": "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "required": false,
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ]
+                },
+                {
                     "name": "chat_id",
                     "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                     "required": true,
@@ -7265,7 +7893,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -7297,7 +7925,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
                     "required": false,
                     "types": [
                         "ForceReply",
@@ -7343,6 +7971,14 @@
             "description": "Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .MP3 or .M4A format. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future.\nFor sending voice messages, use the [sendVoice](https://core.telegram.org/bots/api#sendvoice) method instead.",
             "arguments": [
                 {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
                     "name": "audio",
                     "description": "Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api#sending-files)",
                     "required": true,
@@ -7360,6 +7996,14 @@
                     ]
                 },
                 {
+                    "name": "caption_entities",
+                    "description": "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "required": false,
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ]
+                },
+                {
                     "name": "chat_id",
                     "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                     "required": true,
@@ -7370,7 +8014,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -7402,7 +8046,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
                     "required": false,
                     "types": [
                         "ForceReply",
@@ -7449,7 +8093,7 @@
             "arguments": [
                 {
                     "name": "action",
-                    "description": "Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for [text messages](https://core.telegram.org/bots/api#sendmessage), upload_photo for [photos](https://core.telegram.org/bots/api#sendphoto), record_video or upload_video for [videos](https://core.telegram.org/bots/api#sendvideo), record_audio or upload_audio for [audio files](https://core.telegram.org/bots/api#sendaudio), upload_document for [general files](https://core.telegram.org/bots/api#senddocument), find_location for [location data](https://core.telegram.org/bots/api#sendlocation), record_video_note or upload_video_note for [video notes](https://core.telegram.org/bots/api#sendvideonote).",
+                    "description": "Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for [text messages](https://core.telegram.org/bots/api#sendmessage), upload_photo for [photos](https://core.telegram.org/bots/api#sendphoto), record_video or upload_video for [videos](https://core.telegram.org/bots/api#sendvideo), record_voice or upload_voice for [voice notes](https://core.telegram.org/bots/api#sendvoice), upload_document for [general files](https://core.telegram.org/bots/api#senddocument), find_location for [location data](https://core.telegram.org/bots/api#sendlocation), record_video_note or upload_video_note for [video notes](https://core.telegram.org/bots/api#sendvideonote).",
                     "required": true,
                     "types": [
                         "string"
@@ -7476,6 +8120,14 @@
             "description": "Use this method to send phone contacts. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned.",
             "arguments": [
                 {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
                     "name": "chat_id",
                     "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                     "required": true,
@@ -7486,7 +8138,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -7518,7 +8170,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards), instructions to remove keyboard or to force a reply from the user.",
+                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards), instructions to remove keyboard or to force a reply from the user.",
                     "required": false,
                     "types": [
                         "ForceReply",
@@ -7537,7 +8189,7 @@
                 },
                 {
                     "name": "vcard",
-                    "description": "Additional data about the contact in the form of a [vCard](https://web.archive.org/web/20201103003825/https://en.wikipedia.org/wiki/VCard), 0-2048 bytes",
+                    "description": "Additional data about the contact in the form of a [vCard](https://web.archive.org/web/20210301095052/https://en.wikipedia.org/wiki/VCard), 0-2048 bytes",
                     "required": false,
                     "types": [
                         "string"
@@ -7555,6 +8207,14 @@
             "description": "Use this method to send an animated emoji that will display a random value. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned.",
             "arguments": [
                 {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
                     "name": "chat_id",
                     "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                     "required": true,
@@ -7565,7 +8225,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -7573,7 +8233,7 @@
                 },
                 {
                     "name": "emoji",
-                    "description": "Emoji on which the dice throw animation is based. Currently, must be one of “”, “”, or “”. Dice can have values 1-6 for “” and “”, and values 1-5 for “”. Defaults to “”",
+                    "description": "Emoji on which the dice throw animation is based. Currently, must be one of “”, “”, “”, “”, or “”. Dice can have values 1-6 for “” and “”, values 1-5 for “” and “”, and values 1-64 for “”. Defaults to “”",
                     "required": false,
                     "types": [
                         "string"
@@ -7581,7 +8241,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
                     "required": false,
                     "types": [
                         "ForceReply",
@@ -7610,11 +8270,27 @@
             "description": "Use this method to send general files. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.",
             "arguments": [
                 {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
                     "name": "caption",
                     "description": "Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing",
                     "required": false,
                     "types": [
                         "string"
+                    ]
+                },
+                {
+                    "name": "caption_entities",
+                    "description": "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "required": false,
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
                     ]
                 },
                 {
@@ -7627,8 +8303,16 @@
                     ]
                 },
                 {
+                    "name": "disable_content_type_detection",
+                    "description": "Disables automatic server-side content type detection for files uploaded using multipart/form-data",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -7653,7 +8337,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
                     "required": false,
                     "types": [
                         "ForceReply",
@@ -7691,6 +8375,14 @@
             "description": "Use this method to send a game. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned.",
             "arguments": [
                 {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
                     "name": "chat_id",
                     "description": "Unique identifier for the target chat",
                     "required": true,
@@ -7700,7 +8392,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -7708,7 +8400,7 @@
                 },
                 {
                     "name": "game_short_name",
-                    "description": "Short name of the game, serves as the unique identifier for the game. Set up your games via [Botfather](https://web.archive.org/web/20201103003825/https://t.me/botfather).",
+                    "description": "Short name of the game, serves as the unique identifier for the game. Set up your games via [Botfather](https://web.archive.org/web/20210301095052/https://t.me/botfather).",
                     "required": true,
                     "types": [
                         "string"
@@ -7716,7 +8408,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game.",
+                    "description": "A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game.",
                     "required": false,
                     "types": [
                         "InlineKeyboardMarkup"
@@ -7742,6 +8434,14 @@
             "description": "Use this method to send invoices. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned.",
             "arguments": [
                 {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
                     "name": "chat_id",
                     "description": "Unique identifier for the target private chat",
                     "required": true,
@@ -7751,7 +8451,7 @@
                 },
                 {
                     "name": "currency",
-                    "description": "Three-letter ISO 4217 currency code, see [more on currencies](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots/payments#supported-currencies)",
+                    "description": "Three-letter ISO 4217 currency code, see [more on currencies](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots/payments#supported-currencies)",
                     "required": true,
                     "types": [
                         "string"
@@ -7767,7 +8467,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -7871,7 +8571,7 @@
                 },
                 {
                     "name": "provider_token",
-                    "description": "Payments provider token, obtained via [Botfather](https://web.archive.org/web/20201103003825/https://t.me/botfather)",
+                    "description": "Payments provider token, obtained via [Botfather](https://web.archive.org/web/20210301095052/https://t.me/botfather)",
                     "required": true,
                     "types": [
                         "string"
@@ -7879,7 +8579,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.",
+                    "description": "A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.",
                     "required": false,
                     "types": [
                         "InlineKeyboardMarkup"
@@ -7937,6 +8637,14 @@
             "description": "Use this method to send point on the map. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned.",
             "arguments": [
                 {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
                     "name": "chat_id",
                     "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                     "required": true,
@@ -7947,10 +8655,26 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
+                    ]
+                },
+                {
+                    "name": "heading",
+                    "description": "For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.",
+                    "required": false,
+                    "types": [
+                        "int32"
+                    ]
+                },
+                {
+                    "name": "horizontal_accuracy",
+                    "description": "The radius of uncertainty for the location, measured in meters; 0-1500",
+                    "required": false,
+                    "types": [
+                        "float"
                     ]
                 },
                 {
@@ -7963,7 +8687,7 @@
                 },
                 {
                     "name": "live_period",
-                    "description": "Period in seconds for which the location will be updated (see [Live Locations](https://web.archive.org/web/20201103003825/https://telegram.org/blog/live-locations), should be between 60 and 86400.",
+                    "description": "Period in seconds for which the location will be updated (see [Live Locations](https://web.archive.org/web/20210301095052/https://telegram.org/blog/live-locations), should be between 60 and 86400.",
                     "required": false,
                     "types": [
                         "int32"
@@ -7978,8 +8702,16 @@
                     ]
                 },
                 {
+                    "name": "proximity_alert_radius",
+                    "description": "For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.",
+                    "required": false,
+                    "types": [
+                        "int32"
+                    ]
+                },
+                {
                     "name": "reply_markup",
-                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
                     "required": false,
                     "types": [
                         "ForceReply",
@@ -8005,8 +8737,16 @@
             "category": "available-methods",
             "name": "sendMediaGroup",
             "link": "https://core.telegram.org/bots/api#sendmediagroup",
-            "description": "Use this method to send a group of photos or videos as an album. On success, an array of the sent [Messages](https://core.telegram.org/bots/api#message) is returned.",
+            "description": "Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of [Messages](https://core.telegram.org/bots/api#message) that were sent is returned.",
             "arguments": [
+                {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
                 {
                     "name": "chat_id",
                     "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
@@ -8018,7 +8758,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the messages [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends messages [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -8026,10 +8766,10 @@
                 },
                 {
                     "name": "media",
-                    "description": "A JSON-serialized array describing photos and videos to be sent, must include 2-10 items",
+                    "description": "A JSON-serialized array describing messages to be sent, must include 2-10 items",
                     "required": true,
                     "types": [
-                        "array\u003cInputMediaPhoto|InputMediaVideo\u003e"
+                        "array\u003cInputMediaAudio|InputMediaDocument|InputMediaPhoto|InputMediaVideo\u003e"
                     ]
                 },
                 {
@@ -8052,6 +8792,14 @@
             "description": "Use this method to send text messages. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned.",
             "arguments": [
                 {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
                     "name": "chat_id",
                     "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                     "required": true,
@@ -8062,7 +8810,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -8077,6 +8825,14 @@
                     ]
                 },
                 {
+                    "name": "entities",
+                    "description": "List of special entities that appear in message text, which can be specified instead of parse_mode",
+                    "required": false,
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
+                    ]
+                },
+                {
                     "name": "parse_mode",
                     "description": "Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details.",
                     "required": false,
@@ -8086,7 +8842,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
                     "required": false,
                     "types": [
                         "ForceReply",
@@ -8123,11 +8879,27 @@
             "description": "Use this method to send photos. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned.",
             "arguments": [
                 {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
                     "name": "caption",
                     "description": "Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing",
                     "required": false,
                     "types": [
                         "string"
+                    ]
+                },
+                {
+                    "name": "caption_entities",
+                    "description": "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "required": false,
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
                     ]
                 },
                 {
@@ -8141,7 +8913,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -8157,7 +8929,7 @@
                 },
                 {
                     "name": "photo",
-                    "description": "Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api#sending-files)",
+                    "description": "Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. [More info on Sending Files »](https://core.telegram.org/bots/api#sending-files)",
                     "required": true,
                     "types": [
                         "InputFile",
@@ -8166,7 +8938,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
                     "required": false,
                     "types": [
                         "ForceReply",
@@ -8194,6 +8966,14 @@
             "link": "https://core.telegram.org/bots/api#sendpoll",
             "description": "Use this method to send a native poll. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned.",
             "arguments": [
+                {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
                 {
                     "name": "allows_multiple_answers",
                     "description": "True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False",
@@ -8229,7 +9009,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -8241,6 +9021,14 @@
                     "required": false,
                     "types": [
                         "string"
+                    ]
+                },
+                {
+                    "name": "explanation_entities",
+                    "description": "List of special entities that appear in the poll explanation, which can be specified instead of parse_mode",
+                    "required": false,
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
                     ]
                 },
                 {
@@ -8285,7 +9073,7 @@
                 },
                 {
                     "name": "question",
-                    "description": "Poll question, 1-255 characters",
+                    "description": "Poll question, 1-300 characters",
                     "required": true,
                     "types": [
                         "string"
@@ -8293,7 +9081,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
                     "required": false,
                     "types": [
                         "ForceReply",
@@ -8327,8 +9115,16 @@
             "category": "stickers",
             "name": "sendSticker",
             "link": "https://core.telegram.org/bots/api#sendsticker",
-            "description": "Use this method to send static .WEBP or [animated](https://web.archive.org/web/20201103003825/https://telegram.org/blog/animated-stickers) .TGS stickers. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned.",
+            "description": "Use this method to send static .WEBP or [animated](https://web.archive.org/web/20210301095052/https://telegram.org/blog/animated-stickers) .TGS stickers. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned.",
             "arguments": [
+                {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
                 {
                     "name": "chat_id",
                     "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
@@ -8340,7 +9136,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -8348,7 +9144,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
                     "required": false,
                     "types": [
                         "ForceReply",
@@ -8394,6 +9190,14 @@
                     ]
                 },
                 {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
                     "name": "chat_id",
                     "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                     "required": true,
@@ -8404,7 +9208,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -8421,6 +9225,22 @@
                 {
                     "name": "foursquare_type",
                     "description": "Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)",
+                    "required": false,
+                    "types": [
+                        "string"
+                    ]
+                },
+                {
+                    "name": "google_place_id",
+                    "description": "Google Places identifier of the venue",
+                    "required": false,
+                    "types": [
+                        "string"
+                    ]
+                },
+                {
+                    "name": "google_place_type",
+                    "description": "Google Places type of the venue. (See [supported types](https://web.archive.org/web/20210301095052/https://developers.google.com/places/web-service/supported_types).)",
                     "required": false,
                     "types": [
                         "string"
@@ -8444,7 +9264,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
                     "required": false,
                     "types": [
                         "ForceReply",
@@ -8481,11 +9301,27 @@
             "description": "Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as [Document](https://core.telegram.org/bots/api#document)). On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.",
             "arguments": [
                 {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
                     "name": "caption",
                     "description": "Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing",
                     "required": false,
                     "types": [
                         "string"
+                    ]
+                },
+                {
+                    "name": "caption_entities",
+                    "description": "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "required": false,
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
                     ]
                 },
                 {
@@ -8499,7 +9335,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -8531,7 +9367,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
                     "required": false,
                     "types": [
                         "ForceReply",
@@ -8591,8 +9427,16 @@
             "category": "available-methods",
             "name": "sendVideoNote",
             "link": "https://core.telegram.org/bots/api#sendvideonote",
-            "description": "As of [v.4.0](https://web.archive.org/web/20201103003825/https://telegram.org/blog/video-messages-and-telescope), Telegram clients support rounded square mp4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned.",
+            "description": "As of [v.4.0](https://web.archive.org/web/20210301095052/https://telegram.org/blog/video-messages-and-telescope), Telegram clients support rounded square mp4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned.",
             "arguments": [
+                {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
                 {
                     "name": "chat_id",
                     "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
@@ -8604,7 +9448,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -8628,7 +9472,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
                     "required": false,
                     "types": [
                         "ForceReply",
@@ -8675,11 +9519,27 @@
             "description": "Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS (other formats may be sent as [Audio](https://core.telegram.org/bots/api#audio) or [Document](https://core.telegram.org/bots/api#document)). On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.",
             "arguments": [
                 {
+                    "name": "allow_sending_without_reply",
+                    "description": "Pass True, if the message should be sent even if the specified replied-to message is not found",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
                     "name": "caption",
                     "description": "Voice message caption, 0-1024 characters after entities parsing",
                     "required": false,
                     "types": [
                         "string"
+                    ]
+                },
+                {
+                    "name": "caption_entities",
+                    "description": "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+                    "required": false,
+                    "types": [
+                        "array\u003cMessageEntity\u003e"
                     ]
                 },
                 {
@@ -8693,7 +9553,7 @@
                 },
                 {
                     "name": "disable_notification",
-                    "description": "Sends the message [silently](https://web.archive.org/web/20201103003825/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
+                    "description": "Sends the message [silently](https://web.archive.org/web/20210301095052/https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.",
                     "required": false,
                     "types": [
                         "boolean"
@@ -8717,7 +9577,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                    "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
                     "required": false,
                     "types": [
                         "ForceReply",
@@ -9081,7 +9941,7 @@
                 },
                 {
                     "name": "thumb",
-                    "description": "A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see [](https://web.archive.org/web/20201103003825/https://core.telegram.org/animated_stickers#technical-requirements)[https://core.telegram.org/animated_stickers#technical-requirements](https://web.archive.org/web/20201103003825/https://core.telegram.org/animated_stickers#technical-requirements) for animated sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api#sending-files). Animated sticker set thumbnail can't be uploaded via HTTP URL.",
+                    "description": "A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see [](https://web.archive.org/web/20210301095052/https://core.telegram.org/animated_stickers#technical-requirements)[https://core.telegram.org/animated_stickers#technical-requirements](https://web.archive.org/web/20210301095052/https://core.telegram.org/animated_stickers#technical-requirements) for animated sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api#sending-files). Animated sticker set thumbnail can't be uploaded via HTTP URL.",
                     "required": false,
                     "types": [
                         "InputFile",
@@ -9117,10 +9977,26 @@
                 },
                 {
                     "name": "certificate",
-                    "description": "Upload your public key certificate so that the root certificate in use can be checked. See our [self-signed guide](https://core.telegram.org/web/20201103003825/https://core.telegram.org/bots/self-signed) for details.",
+                    "description": "Upload your public key certificate so that the root certificate in use can be checked. See our [self-signed guide](https://core.telegram.org/web/20210301095052/https://core.telegram.org/bots/self-signed) for details.",
                     "required": false,
                     "types": [
                         "InputFile"
+                    ]
+                },
+                {
+                    "name": "drop_pending_updates",
+                    "description": "Pass True to drop all pending updates",
+                    "required": false,
+                    "types": [
+                        "boolean"
+                    ]
+                },
+                {
+                    "name": "ip_address",
+                    "description": "The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS",
+                    "required": false,
+                    "types": [
+                        "string"
                     ]
                 },
                 {
@@ -9177,7 +10053,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "A JSON-serialized object for a new [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).",
+                    "description": "A JSON-serialized object for a new [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).",
                     "required": false,
                     "types": [
                         "InlineKeyboardMarkup"
@@ -9214,7 +10090,7 @@
                 },
                 {
                     "name": "reply_markup",
-                    "description": "A JSON-serialized object for a new message [inline keyboard](https://web.archive.org/web/20201103003825/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).",
+                    "description": "A JSON-serialized object for a new message [inline keyboard](https://web.archive.org/web/20210301095052/https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).",
                     "required": false,
                     "types": [
                         "InlineKeyboardMarkup"
@@ -9229,7 +10105,7 @@
             "category": "available-methods",
             "name": "unbanChatMember",
             "link": "https://core.telegram.org/bots/api#unbanchatmember",
-            "description": "Use this method to unban a previously kicked user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. Returns True on success.",
+            "description": "Use this method to unban a previously kicked user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be removed from the chat. If you don't want this, use the parameter only_if_banned. Returns True on success.",
             "arguments": [
                 {
                     "name": "chat_id",
@@ -9238,6 +10114,14 @@
                     "types": [
                         "int32",
                         "string"
+                    ]
+                },
+                {
+                    "name": "only_if_banned",
+                    "description": "Do nothing if the user is not banned",
+                    "required": false,
+                    "types": [
+                        "boolean"
                     ]
                 },
                 {
@@ -9253,11 +10137,11 @@
                 "boolean"
             ]
         },
-        "unpinChatMessage": {
+        "unpinAllChatMessages": {
             "category": "available-methods",
-            "name": "unpinChatMessage",
-            "link": "https://core.telegram.org/bots/api#unpinchatmessage",
-            "description": "Use this method to unpin a message in a group, a supergroup, or a channel. The bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in the supergroup or 'can_edit_messages' admin right in the channel. Returns True on success.",
+            "name": "unpinAllChatMessages",
+            "link": "https://core.telegram.org/bots/api#unpinallchatmessages",
+            "description": "Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 'can_edit_messages' admin right in a channel. Returns True on success.",
             "arguments": [
                 {
                     "name": "chat_id",
@@ -9266,6 +10150,34 @@
                     "types": [
                         "int32",
                         "string"
+                    ]
+                }
+            ],
+            "returns": [
+                "boolean"
+            ]
+        },
+        "unpinChatMessage": {
+            "category": "available-methods",
+            "name": "unpinChatMessage",
+            "link": "https://core.telegram.org/bots/api#unpinchatmessage",
+            "description": "Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 'can_edit_messages' admin right in a channel. Returns True on success.",
+            "arguments": [
+                {
+                    "name": "chat_id",
+                    "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
+                    "required": true,
+                    "types": [
+                        "int32",
+                        "string"
+                    ]
+                },
+                {
+                    "name": "message_id",
+                    "description": "Identifier of a message to unpin. If not specified, the most recent pinned message (by sending date) will be unpinned.",
+                    "required": false,
+                    "types": [
+                        "int32"
                     ]
                 }
             ],
