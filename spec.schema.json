@@ -1,0 +1,224 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Telegram Bot API JSON specification",
+	"type": "object",
+	"additionalProperties": false,
+	"required": [
+		"version",
+		"releaseDate",
+		"link",
+		"types",
+		"methods"
+	],
+	"properties": {
+		"version": {
+			"title": "Bot API version",
+			"$ref": "#/definitions/nonEmptyString"
+		},
+		"releaseDate": {
+			"title": "Bot API Release date",
+			"$ref": "#/definitions/nonEmptyString"
+		},
+		"link": {
+			"title": "Link to changelog",
+			"$ref": "#/definitions/nonEmptyLink"
+		},
+		"types": {
+			"title": "Available types",
+			"type": "object",
+			"additionalProperties": false,
+  			"minProperties": 1,
+			"patternProperties": {
+				"^[A-Z][A-Za-z0-9_]+$": {
+					"$ref": "#/definitions/Type"
+				}
+			}
+		},
+		"methods": {
+			"title": "Available methods",
+			"type": "object",
+			"additionalProperties": false,
+			"minProperties": 1,
+			"patternProperties": {
+				"^[a-z][A-Za-z0-9_]+$": {
+					"$ref": "#/definitions/Method"
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Type": {
+			"title": "Type",
+			"description": "This object describes the type provided by Telegram.",
+			"type": "object",
+			"additionalProperties": false,
+			"required": [
+				"category",
+				"name",
+				"link",
+				"description"
+			],
+			"properties": {
+				"category": {
+					"description": "The section name from the official doc in which the provided type is described. It does not contain any helpful information.",
+					"$ref": "#/definitions/nonEmptyString"
+				},
+				"name": {
+					"description": "Name of the provided Telegram type.",
+					"$ref": "#/definitions/nonEmptyString"
+				},
+				"link": {
+					"description": "Link to the official doc where provided Telegram type is described.",
+					"$ref": "#/definitions/nonEmptyLink"
+				},
+				"description": {
+					"description": "Description of the provided Telegram type.",
+					"type": "string"
+				},
+				"properties": {
+					"description": "Properties (fields) of the provided Telegram type.",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/TypeProperty"
+					}
+				},
+				"parent": {
+					"description": "The name of the Telegram type that can be a parent of provided.",
+					"$ref": "#/definitions/nonEmptyString"
+				},
+				"children": {
+					"description": "List of Telegram types names that can be subtypes of the provided type.",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/nonEmptyString"
+					}
+				}
+			}
+		},
+		"TypeProperty": {
+			"title": "Type property (field)",
+			"description": "This object describes the property (field) of the provided Telegram type.",
+			"type": "object",
+			"additionalProperties": false,
+			"required": [
+				"name",
+				"description",
+				"types",
+				"optional"
+			],
+			"properties": {
+				"name": {
+					"description": "Name of the provided property (field).",
+					"$ref": "#/definitions/nonEmptyString"
+				},
+				"description": {
+					"description": "Description of the provided property (field).",
+					"type": "string"
+				},
+				"types": {
+					"description": "List of data types that provided property (field) can be.",
+					"$ref": "#/definitions/dataTypes"
+				},
+				"optional": {
+					"description": "Describes if the provided property (field) is optional or not.",
+					"type": "boolean"
+				},
+				"default": {
+					"description": "Default value of the provided property (field).",
+					"$ref": "#/definitions/nonEmptyString"
+				}
+			}
+		},
+		"Method": {
+			"title": "Method",
+			"description": "This object describes the method provided by Telegram.",
+			"type": "object",
+			"additionalProperties": false,
+			"required": [
+				"category",
+				"name",
+				"link",
+				"description",
+				"returns"
+			],
+			"properties": {
+				"category": {
+					"description": "The section name from the official doc in which the provided method is described. It does not contain any helpful information.",
+					"$ref": "#/definitions/nonEmptyString"
+				},
+				"name": {
+					"description": "Name of the provided Telegram method.",
+					"$ref": "#/definitions/nonEmptyString"
+				},
+				"link": {
+					"description": "Link to the official doc where provided Telegram method is described.",
+					"$ref": "#/definitions/nonEmptyLink"
+				},
+				"description": {
+					"description": "Description of the provided Telegram method.",
+					"type": "string"
+				},
+				"arguments": {
+					"description": "Arguments (parameters) of the provided Telegram method.",
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/MethodArgument"
+					}
+				},
+				"returns": {
+					"description": "List of data types that can be returned by provided Telegram method.",
+					"$ref": "#/definitions/dataTypes"
+				}
+			}
+		},
+		"MethodArgument": {
+			"title": "Method argument (parameter)",
+			"description": "This object describes the argument (parameter) of the provided Telegram method.",
+			"type": "object",
+			"additionalProperties": false,
+			"required": [
+				"name",
+				"description",
+				"types",
+				"required"
+			],
+			"properties": {
+				"name": {
+					"description": "Name of the provided argument (parameter).",
+					"$ref": "#/definitions/nonEmptyString"
+				},
+				"description": {
+					"description": "Description of the provided argument (parameter).",
+					"type": "string"
+				},
+				"types": {
+					"description": "List of data types for the provided argument (parameter).",
+					"$ref": "#/definitions/dataTypes"
+				},
+				"required": {
+					"description": "Describes if the provided argument (parameter) is required or not.",
+					"type": "boolean"
+				}
+			}
+		},
+		"nonEmptyString": {
+            "type": "string",
+            "minLength": 1
+        },
+		"nonEmptyLink": {
+            "type": "string",
+			"format": "uri"
+        },
+		"dataTypes": {
+			"type": "array",
+			"minItems": 1,
+			"items": {
+				"description": "Data type name. It can be as one of the available data type definitions, either as the name of the Telegram type.",
+				"$ref": "#/definitions/nonEmptyString"
+			}
+		}
+	}
+}
