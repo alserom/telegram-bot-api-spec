@@ -1,0 +1,44 @@
+name: Validate spec and openapi
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.json'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**.json'
+
+jobs:
+  validate:
+    name: validate spec and openapi
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+
+      - name: Install redoc
+        run: npm i -g @redocly/cli@latest
+
+      - name: Download validation tool
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          repo: alserom/tg-bot-api-spec
+          version: latest
+          file: validate-spec
+          target: ./../validate-spec
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate spec
+        run: chmod +x ./../validate-spec && ./../validate-spec spec.schema.json spec.json spec.min.json
+
+      - name: Lint openapi
+        run: redocly lint openapi.json openapi.min.json

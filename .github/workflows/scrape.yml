@@ -1,0 +1,107 @@
+name: Scrape Telegram Bot API
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_url:
+        description: URL to source
+        type: string
+        required: true
+        default: https://core.telegram.org/bots/api
+  schedule:
+    - cron: '0 20 * * *'
+
+jobs:
+  scrape:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+
+        - id: get_source_url
+          env:
+            DEFAULT_SOURCE_URL: https://core.telegram.org/bots/api
+          run: echo "url=${{ github.event.inputs.source_url || env.DEFAULT_SOURCE_URL }}" >> $GITHUB_OUTPUT
+
+        - id: get_current_version_json
+          run: |
+            content=`[ -f version.json ] && cat version.json || echo {"version":false}`
+            content="${content//'%'/'%25'}"
+            content="${content//$'\n'/'%0A'}"
+            content="${content//$'\r'/'%0D'}"
+            echo "versionJson=$content" >> $GITHUB_OUTPUT
+        - id: get_current_version
+          run: |
+            echo "version=${{fromJson(steps.get_current_version_json.outputs.versionJson).version}}" >> $GITHUB_OUTPUT
+        
+        - name: Download source
+          run: wget ${{ steps.get_source_url.outputs.url }} -O source.html
+
+        - name: Download scraping tool
+          uses: dsaltares/fetch-gh-release-asset@master
+          with:
+            repo: alserom/tg-bot-api-spec
+            version: latest
+            file: to-repo-data
+            target: ./../to-repo-data
+            token: ${{ secrets.GITHUB_TOKEN }}
+
+        - name: Scrape
+          run: chmod +x ./../to-repo-data && ./../to-repo-data --source=source.html
+
+        - name: Upload artifact
+          uses: actions/upload-artifact@v3
+          if: failure()
+          with:
+            name: source
+            path: source.html
+            if-no-files-found: error
+
+        - id: get_new_version_json
+          run: |
+            content=`[ -f version.json ] && cat version.json || echo {"version":false}`
+            content="${content//'%'/'%25'}"
+            content="${content//$'\n'/'%0A'}"
+            content="${content//$'\r'/'%0D'}"
+            echo "versionJson=$content" >> $GITHUB_OUTPUT
+        - id: get_new_version
+          run: |
+            echo "version=${{fromJson(steps.get_new_version_json.outputs.versionJson).version}}" >> $GITHUB_OUTPUT
+
+        - id: pr_data
+          run: |
+            if git show-ref --tags --verify --quiet "refs/tags/v${{ steps.get_new_version.outputs.version }}"; then
+              echo "commit_msg=fix(spec): updating Bot API ${{ steps.get_new_version.outputs.version }}" >> $GITHUB_OUTPUT
+              echo "title=Rollback from v${{ steps.get_current_version.outputs.version }} to v${{ steps.get_new_version.outputs.version }}?" >> $GITHUB_OUTPUT
+            elif [[ ${{ steps.get_new_version.outputs.version }} == ${{ steps.get_current_version.outputs.version }} ]]; then
+              echo "commit_msg=fix(spec): updating Bot API ${{ steps.get_new_version.outputs.version }}" >> $GITHUB_OUTPUT
+              echo "title=Updating according to the latest changes" >> $GITHUB_OUTPUT
+            else
+              echo "commit_msg=feat(spec): introducing Bot API ${{ steps.get_new_version.outputs.version }}" >> $GITHUB_OUTPUT
+              echo "title=Adding new version" >> $GITHUB_OUTPUT
+            fi
+
+        - uses: tibdex/github-app-token@v1
+          id: generate-token
+          with:
+            app_id: ${{ secrets.APP_ID }}
+            private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
+        - run: rm source.html
+        - name: Create Pull Request
+          uses: peter-evans/create-pull-request@v5
+          with:
+            token: ${{ steps.generate-token.outputs.token }}
+            branch: automated/spec-update
+            reviewers: alserom
+            assignees: alserom
+            labels: |
+              automated
+            delete-branch: true
+            commit-message: ${{ steps.pr_data.outputs.commit_msg }}
+            title: '[Bot API ${{ steps.get_new_version.outputs.version }}] ${{ steps.pr_data.outputs.title }}'
+            body: |
+              This is an automated PR. Please check the diff and the action [logs][1] to prevent unexpected behavior.
+
+              [1]: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

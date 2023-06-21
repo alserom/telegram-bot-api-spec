@@ -1,0 +1,53 @@
+name: Tag old version
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'version.json'
+
+jobs:
+  tag:
+    if: github.event.before != '0000000000000000000000000000000000000000'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to previous commit
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.before }}
+          fetch-depth: 0
+          sparse-checkout: |
+            version.json
+          sparse-checkout-cone-mode: false
+
+      - id: get_version_json
+        run: |
+          content=`[ -f version.json ] && cat version.json || echo {"version":false}`
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          echo "versionJson=$content" >> $GITHUB_OUTPUT
+      - id: get_version
+        run: |
+          echo "version=${{fromJson(steps.get_version_json.outputs.versionJson).version}}" >> $GITHUB_OUTPUT
+
+      - name: Assert that tag not exists
+        if: steps.get_version.outputs.version != 'false'
+        run: |
+          if git show-ref --tags --verify --quiet "refs/tags/v${{ steps.get_version.outputs.version }}"; then
+            echo "Tag ${{ steps.get_version.outputs.version }} exists"
+            exit 1
+          else
+            echo "Tag v${{ steps.get_version.outputs.version }} does not exist"
+          fi
+
+      - name: Push tag
+        if: steps.get_version.outputs.version != 'false'
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_sha: ${{ github.event.before }}
+          custom_tag: ${{ steps.get_version.outputs.version }}
+          tag_prefix: v 
