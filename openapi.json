@@ -527,6 +527,11 @@
                         "description": "Optional. Custom emoji identifier of emoji status of the other party in a private chat. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
                         "type": "string"
                     },
+                    "emoji_status_expiration_date": {
+                        "description": "Optional. Expiration date of the emoji status of the other party in a private chat, if any. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
+                        "format": "int32",
+                        "type": "integer"
+                    },
                     "first_name": {
                         "description": "Optional. First name of the other party in a private chat",
                         "type": "string"
@@ -4671,6 +4676,10 @@
                         "$ref": "#/components/schemas/Sticker",
                         "description": "Optional. Message is a sticker, information about the sticker"
                     },
+                    "story": {
+                        "$ref": "#/components/schemas/Story",
+                        "description": "Optional. Message is a forwarded story"
+                    },
                     "successful_payment": {
                         "$ref": "#/components/schemas/SuccessfulPayment",
                         "description": "Optional. Message is a service message about a successful payment, information about the payment. [More about payments »](https://core.telegram.org/bots/api#payments)"
@@ -5412,7 +5421,7 @@
                 },
                 "properties": {
                     "option_ids": {
-                        "description": "0-based identifiers of answer options, chosen by the user. May be empty if the user retracted their vote.",
+                        "description": "0-based identifiers of chosen answer options. May be empty if the vote was retracted.",
                         "items": {
                             "format": "int32",
                             "type": "integer"
@@ -5425,12 +5434,15 @@
                     },
                     "user": {
                         "$ref": "#/components/schemas/User",
-                        "description": "The user, who changed the answer to the poll"
+                        "description": "Optional. The user that changed the answer to the poll, if the voter isn't anonymous"
+                    },
+                    "voter_chat": {
+                        "$ref": "#/components/schemas/Chat",
+                        "description": "Optional. The chat that changed the answer to the poll, if the voter is anonymous"
                     }
                 },
                 "required": [
                     "poll_id",
-                    "user",
                     "option_ids"
                 ],
                 "type": "object"
@@ -5875,6 +5887,15 @@
                     "is_video",
                     "stickers"
                 ],
+                "type": "object"
+            },
+            "Story": {
+                "additionalProperties": false,
+                "description": "This object represents a message about a forwarded story in the chat. Currently holds no information.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#story"
+                },
                 "type": "object"
             },
             "SuccessfulPayment": {
@@ -6524,13 +6545,13 @@
             "name": "Generated with `tg-bot-api-spec` tool",
             "url": "https://github.com/alserom/tg-bot-api-spec"
         },
-        "description": "This is a copy of the official [Telegram Bot API docs](https://core.telegram.org/bots/api) page converted to OpenAPI spec.\n\nNote: Despite the fact that Telegram supports four ways of passing parameters in Bot API requests this spec describes only some of them per each method.\nMethods without arguments describe only as 'GET' requests. Methods with 'InputFile' in arguments describe as 'POST' with content type 'multipart/form-data' \u0026 'application/json'. Others - 'POST' with 'application/json' content type.\n\nThe Bot API is an HTTP-based interface created for developers keen on building bots for Telegram.\nTo learn how to create and set up a bot, please consult [Introduction to Bots](https://core.telegram.org/bots) and [Bot FAQ](https://core.telegram.org/bots/faq).\n\n- Release date: April 21, 2023\n- Changelog: [https://core.telegram.org/bots/api-changelog#april-21-2023](https://core.telegram.org/bots/api-changelog#april-21-2023)",
+        "description": "This is a copy of the official [Telegram Bot API docs](https://core.telegram.org/bots/api) page converted to OpenAPI spec.\n\nNote: Despite the fact that Telegram supports four ways of passing parameters in Bot API requests this spec describes only some of them per each method.\nMethods without arguments describe only as 'GET' requests. Methods with 'InputFile' in arguments describe as 'POST' with content type 'multipart/form-data' \u0026 'application/json'. Others - 'POST' with 'application/json' content type.\n\nThe Bot API is an HTTP-based interface created for developers keen on building bots for Telegram.\nTo learn how to create and set up a bot, please consult [Introduction to Bots](https://core.telegram.org/bots) and [Bot FAQ](https://core.telegram.org/bots/faq).\n\n- Release date: August 18, 2023\n- Changelog: [https://core.telegram.org/bots/api-changelog#august-18-2023](https://core.telegram.org/bots/api-changelog#august-18-2023)",
         "license": {
             "name": "Licensed under the MIT License",
             "url": "https://raw.githubusercontent.com/alserom/tg-bot-api-spec/main/LICENSE.md"
         },
         "title": "Telegram Bot API",
-        "version": "6.7"
+        "version": "6.8"
     },
     "openapi": "3.1.0",
     "paths": {
@@ -17687,6 +17708,84 @@
                     }
                 },
                 "summary": "Describes `unpinAllForumTopicMessages` method",
+                "tags": [
+                    "available methods"
+                ]
+            }
+        },
+        "/unpinAllGeneralForumTopicMessages": {
+            "post": {
+                "description": "Use this method to clear the list of pinned messages in a General forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#unpinallgeneralforumtopicmessages"
+                },
+                "operationId": "unpinAllGeneralForumTopicMessages",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "additionalProperties": false,
+                                "properties": {
+                                    "chat_id": {
+                                        "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
+                                        "oneOf": [
+                                            {
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            {
+                                                "type": "string"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "chat_id"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "ok": {
+                                            "default": true,
+                                            "type": "boolean"
+                                        },
+                                        "result": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "required": [
+                                        "ok",
+                                        "result"
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "4XX": {
+                        "$ref": "#/components/responses/error"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/error"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                },
+                "summary": "Describes `unpinAllGeneralForumTopicMessages` method",
                 "tags": [
                     "available methods"
                 ]
