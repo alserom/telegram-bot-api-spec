@@ -535,6 +535,10 @@
                         "description": "Optional. True, if the bot can change the group sticker set. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
                         "type": "boolean"
                     },
+                    "custom_emoji_sticker_set_name": {
+                        "description": "Optional. For supergroups, the name of the group's custom emoji sticker set. Custom emoji from this set can be used by all users and bots in the group. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
+                        "type": "string"
+                    },
                     "description": {
                         "description": "Optional. Description, for groups, supergroups and channel chats. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
                         "type": "string"
@@ -653,6 +657,11 @@
                         "description": "Type of chat, can be either “private”, “group”, “supergroup” or “channel”",
                         "type": "string"
                     },
+                    "unrestrict_boost_count": {
+                        "description": "Optional. For supergroups, the minimum number of boosts that a non-administrator user needs to add in order to ignore slow mode and chat permissions. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
+                        "format": "int32",
+                        "type": "integer"
+                    },
                     "username": {
                         "description": "Optional. Username, for private chats, supergroups and channels if available",
                         "type": "string"
@@ -681,7 +690,7 @@
                         "type": "boolean"
                     },
                     "can_delete_stories": {
-                        "description": "Optional. True, if the administrator can delete stories posted by other users; channels only",
+                        "description": "True, if the administrator can delete stories posted by other users",
                         "type": "boolean"
                     },
                     "can_edit_messages": {
@@ -689,7 +698,7 @@
                         "type": "boolean"
                     },
                     "can_edit_stories": {
-                        "description": "Optional. True, if the administrator can edit stories posted by other users; channels only",
+                        "description": "True, if the administrator can edit stories posted by other users",
                         "type": "boolean"
                     },
                     "can_invite_users": {
@@ -697,7 +706,7 @@
                         "type": "boolean"
                     },
                     "can_manage_chat": {
-                        "description": "True, if the administrator can access the chat event log, boost list in channels, see channel members, report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege",
+                        "description": "True, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege.",
                         "type": "boolean"
                     },
                     "can_manage_topics": {
@@ -717,7 +726,7 @@
                         "type": "boolean"
                     },
                     "can_post_stories": {
-                        "description": "Optional. True, if the administrator can post stories in the channel; channels only",
+                        "description": "True, if the administrator can post stories to the chat",
                         "type": "boolean"
                     },
                     "can_promote_members": {
@@ -741,7 +750,10 @@
                     "can_restrict_members",
                     "can_promote_members",
                     "can_change_info",
-                    "can_invite_users"
+                    "can_invite_users",
+                    "can_post_stories",
+                    "can_edit_stories",
+                    "can_delete_stories"
                 ],
                 "type": "object"
             },
@@ -777,6 +789,25 @@
                     "add_date",
                     "expiration_date",
                     "source"
+                ],
+                "type": "object"
+            },
+            "ChatBoostAdded": {
+                "additionalProperties": false,
+                "description": "This object represents a service message about a user boosting a chat.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#chatboostadded"
+                },
+                "properties": {
+                    "boost_count": {
+                        "description": "Number of boosts added by the user",
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "boost_count"
                 ],
                 "type": "object"
             },
@@ -1130,7 +1161,7 @@
                         "type": "boolean"
                     },
                     "can_delete_stories": {
-                        "description": "Optional. True, if the administrator can delete stories posted by other users; channels only",
+                        "description": "True, if the administrator can delete stories posted by other users",
                         "type": "boolean"
                     },
                     "can_edit_messages": {
@@ -1138,7 +1169,7 @@
                         "type": "boolean"
                     },
                     "can_edit_stories": {
-                        "description": "Optional. True, if the administrator can edit stories posted by other users; channels only",
+                        "description": "True, if the administrator can edit stories posted by other users",
                         "type": "boolean"
                     },
                     "can_invite_users": {
@@ -1146,7 +1177,7 @@
                         "type": "boolean"
                     },
                     "can_manage_chat": {
-                        "description": "True, if the administrator can access the chat event log, boost list in channels, see channel members, report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege",
+                        "description": "True, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege.",
                         "type": "boolean"
                     },
                     "can_manage_topics": {
@@ -1166,7 +1197,7 @@
                         "type": "boolean"
                     },
                     "can_post_stories": {
-                        "description": "Optional. True, if the administrator can post stories in the channel; channels only",
+                        "description": "True, if the administrator can post stories to the chat",
                         "type": "boolean"
                     },
                     "can_promote_members": {
@@ -1206,7 +1237,10 @@
                     "can_restrict_members",
                     "can_promote_members",
                     "can_change_info",
-                    "can_invite_users"
+                    "can_invite_users",
+                    "can_post_stories",
+                    "can_edit_stories",
+                    "can_delete_stories"
                 ],
                 "type": "object"
             },
@@ -5053,6 +5087,10 @@
                         "description": "Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator",
                         "type": "string"
                     },
+                    "boost_added": {
+                        "$ref": "#/components/schemas/ChatBoostAdded",
+                        "description": "Optional. Service message: user boosted the chat"
+                    },
                     "caption": {
                         "description": "Optional. Caption for the animation, audio, document, photo, video or voice",
                         "type": "string"
@@ -5285,6 +5323,15 @@
                     "reply_to_message": {
                         "$ref": "#/components/schemas/Message",
                         "description": "Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply."
+                    },
+                    "reply_to_story": {
+                        "$ref": "#/components/schemas/Story",
+                        "description": "Optional. For replies to a story, the original story"
+                    },
+                    "sender_boost_count": {
+                        "description": "Optional. If the sender of the message boosted the chat, the number of boosts added by the user",
+                        "format": "int32",
+                        "type": "integer"
                     },
                     "sender_chat": {
                         "$ref": "#/components/schemas/Chat",
@@ -6918,11 +6965,26 @@
             },
             "Story": {
                 "additionalProperties": false,
-                "description": "This object represents a message about a forwarded story in the chat. Currently holds no information.",
+                "description": "This object represents a story.",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#story"
                 },
+                "properties": {
+                    "chat": {
+                        "$ref": "#/components/schemas/Chat",
+                        "description": "Chat that posted the story"
+                    },
+                    "id": {
+                        "description": "Unique identifier for the story in the chat",
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "chat",
+                    "id"
+                ],
                 "type": "object"
             },
             "SuccessfulPayment": {
@@ -7655,13 +7717,13 @@
             "name": "Generated with `tg-bot-api-spec` tool",
             "url": "https://github.com/alserom/tg-bot-api-spec"
         },
-        "description": "This is a copy of the official [Telegram Bot API docs](https://core.telegram.org/bots/api) page converted to OpenAPI spec.\n\nNote: Despite the fact that Telegram supports four ways of passing parameters in Bot API requests this spec describes only some of them per each method.\nMethods without arguments describe only as 'GET' requests. Methods with 'InputFile' in arguments describe as 'POST' with content type 'multipart/form-data' \u0026 'application/json'. Others - 'POST' with 'application/json' content type.\n\nThe Bot API is an HTTP-based interface created for developers keen on building bots for Telegram.\nTo learn how to create and set up a bot, please consult [Introduction to Bots](https://core.telegram.org/bots) and [Bot FAQ](https://core.telegram.org/bots/faq).\n\n- Release date: December 29, 2023\n- Changelog: [https://core.telegram.org/bots/api-changelog#december-29-2023](https://core.telegram.org/bots/api-changelog#december-29-2023)",
+        "description": "This is a copy of the official [Telegram Bot API docs](https://core.telegram.org/bots/api) page converted to OpenAPI spec.\n\nNote: Despite the fact that Telegram supports four ways of passing parameters in Bot API requests this spec describes only some of them per each method.\nMethods without arguments describe only as 'GET' requests. Methods with 'InputFile' in arguments describe as 'POST' with content type 'multipart/form-data' \u0026 'application/json'. Others - 'POST' with 'application/json' content type.\n\nThe Bot API is an HTTP-based interface created for developers keen on building bots for Telegram.\nTo learn how to create and set up a bot, please consult [Introduction to Bots](https://core.telegram.org/bots) and [Bot FAQ](https://core.telegram.org/bots/faq).\n\n- Release date: February 16, 2024\n- Changelog: [https://core.telegram.org/bots/api-changelog#february-16-2024](https://core.telegram.org/bots/api-changelog#february-16-2024)",
         "license": {
             "name": "Licensed under the MIT License",
             "url": "https://raw.githubusercontent.com/alserom/tg-bot-api-spec/main/LICENSE.md"
         },
         "title": "Telegram Bot API",
-        "version": "7.0"
+        "version": "7.1"
     },
     "openapi": "3.1.0",
     "paths": {
@@ -13024,7 +13086,7 @@
                                         "type": "boolean"
                                     },
                                     "can_delete_stories": {
-                                        "description": "Pass True if the administrator can delete stories posted by other users; channels only",
+                                        "description": "Pass True if the administrator can delete stories posted by other users",
                                         "type": "boolean"
                                     },
                                     "can_edit_messages": {
@@ -13032,7 +13094,7 @@
                                         "type": "boolean"
                                     },
                                     "can_edit_stories": {
-                                        "description": "Pass True if the administrator can edit stories posted by other users; channels only",
+                                        "description": "Pass True if the administrator can edit stories posted by other users",
                                         "type": "boolean"
                                     },
                                     "can_invite_users": {
@@ -13040,7 +13102,7 @@
                                         "type": "boolean"
                                     },
                                     "can_manage_chat": {
-                                        "description": "Pass True if the administrator can access the chat event log, boost list in channels, see channel members, report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege",
+                                        "description": "Pass True if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege.",
                                         "type": "boolean"
                                     },
                                     "can_manage_topics": {
@@ -13060,7 +13122,7 @@
                                         "type": "boolean"
                                     },
                                     "can_post_stories": {
-                                        "description": "Pass True if the administrator can post stories in the channel; channels only",
+                                        "description": "Pass True if the administrator can post stories to the chat",
                                         "type": "boolean"
                                     },
                                     "can_promote_members": {
