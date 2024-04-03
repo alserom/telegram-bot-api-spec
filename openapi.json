@@ -144,6 +144,36 @@
                 ],
                 "type": "object"
             },
+            "Birthdate": {
+                "additionalProperties": false,
+                "description": "",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#birthdate"
+                },
+                "properties": {
+                    "day": {
+                        "description": "Day of the user's birth; 1-31",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "month": {
+                        "description": "Month of the user's birth; 1-12",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "year": {
+                        "description": "Optional. Year of the user's birth",
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "day",
+                    "month"
+                ],
+                "type": "object"
+            },
             "BotCommand": {
                 "additionalProperties": false,
                 "description": "This object represents a bot command.",
@@ -443,6 +473,179 @@
                 ],
                 "type": "object"
             },
+            "BusinessConnection": {
+                "additionalProperties": false,
+                "description": "Describes the connection of the bot with a business account.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#businessconnection"
+                },
+                "properties": {
+                    "can_reply": {
+                        "description": "True, if the bot can act on behalf of the business account in chats that were active in the last 24 hours",
+                        "type": "boolean"
+                    },
+                    "date": {
+                        "description": "Date the connection was established in Unix time",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "id": {
+                        "description": "Unique identifier of the business connection",
+                        "type": "string"
+                    },
+                    "is_enabled": {
+                        "description": "True, if the connection is active",
+                        "type": "boolean"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User",
+                        "description": "Business account user that created the business connection"
+                    },
+                    "user_chat_id": {
+                        "description": "Identifier of a private chat with the user who created the business connection. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.",
+                        "format": "int64",
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "id",
+                    "user",
+                    "user_chat_id",
+                    "date",
+                    "can_reply",
+                    "is_enabled"
+                ],
+                "type": "object"
+            },
+            "BusinessIntro": {
+                "additionalProperties": false,
+                "description": "",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#businessintro"
+                },
+                "properties": {
+                    "message": {
+                        "description": "Optional. Message text of the business intro",
+                        "type": "string"
+                    },
+                    "sticker": {
+                        "$ref": "#/components/schemas/Sticker",
+                        "description": "Optional. Sticker of the business intro"
+                    },
+                    "title": {
+                        "description": "Optional. Title text of the business intro",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "BusinessLocation": {
+                "additionalProperties": false,
+                "description": "",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#businesslocation"
+                },
+                "properties": {
+                    "address": {
+                        "description": "Address of the business",
+                        "type": "string"
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/Location",
+                        "description": "Optional. Location of the business"
+                    }
+                },
+                "required": [
+                    "address"
+                ],
+                "type": "object"
+            },
+            "BusinessMessagesDeleted": {
+                "additionalProperties": false,
+                "description": "This object is received when messages are deleted from a connected business account.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#businessmessagesdeleted"
+                },
+                "properties": {
+                    "business_connection_id": {
+                        "description": "Unique identifier of the business connection",
+                        "type": "string"
+                    },
+                    "chat": {
+                        "$ref": "#/components/schemas/Chat",
+                        "description": "Information about a chat in the business account. The bot may not have access to the chat or the corresponding user."
+                    },
+                    "message_ids": {
+                        "description": "A JSON-serialized list of identifiers of deleted messages in the chat of the business account",
+                        "items": {
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "business_connection_id",
+                    "chat",
+                    "message_ids"
+                ],
+                "type": "object"
+            },
+            "BusinessOpeningHours": {
+                "additionalProperties": false,
+                "description": "",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#businessopeninghours"
+                },
+                "properties": {
+                    "opening_hours": {
+                        "description": "List of time intervals describing business opening hours",
+                        "items": {
+                            "$ref": "#/components/schemas/BusinessOpeningHoursInterval"
+                        },
+                        "type": "array"
+                    },
+                    "time_zone_name": {
+                        "description": "Unique name of the time zone for which the opening hours are defined",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "time_zone_name",
+                    "opening_hours"
+                ],
+                "type": "object"
+            },
+            "BusinessOpeningHoursInterval": {
+                "additionalProperties": false,
+                "description": "",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#businessopeninghoursinterval"
+                },
+                "properties": {
+                    "closing_minute": {
+                        "description": "The minute's sequence number in a week, starting on Monday, marking the end of the time interval during which the business is open; 0 - 8 * 24 * 60",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "opening_minute": {
+                        "description": "The minute's sequence number in a week, starting on Monday, marking the start of the time interval during which the business is open; 0 - 7 * 24 * 60",
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "opening_minute",
+                    "closing_minute"
+                ],
+                "type": "object"
+            },
             "CallbackGame": {
                 "additionalProperties": false,
                 "description": "A placeholder, currently holds no information. Use [BotFather](https://t.me/botfather) to set up your game.",
@@ -530,6 +733,22 @@
                     "bio": {
                         "description": "Optional. Bio of the other party in a private chat. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
                         "type": "string"
+                    },
+                    "birthdate": {
+                        "$ref": "#/components/schemas/Birthdate",
+                        "description": "Optional. For private chats, the date of birth of the user. Returned only in [getChat](https://core.telegram.org/bots/api#getchat)."
+                    },
+                    "business_intro": {
+                        "$ref": "#/components/schemas/BusinessIntro",
+                        "description": "Optional. For private chats with business accounts, the intro of the business. Returned only in [getChat](https://core.telegram.org/bots/api#getchat)."
+                    },
+                    "business_location": {
+                        "$ref": "#/components/schemas/BusinessLocation",
+                        "description": "Optional. For private chats with business accounts, the location of the business. Returned only in [getChat](https://core.telegram.org/bots/api#getchat)."
+                    },
+                    "business_opening_hours": {
+                        "$ref": "#/components/schemas/BusinessOpeningHours",
+                        "description": "Optional. For private chats with business accounts, the opening hours of the business. Returned only in [getChat](https://core.telegram.org/bots/api#getchat)."
                     },
                     "can_set_sticker_set": {
                         "description": "Optional. True, if the bot can change the group sticker set. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
@@ -622,6 +841,10 @@
                     "permissions": {
                         "$ref": "#/components/schemas/ChatPermissions",
                         "description": "Optional. Default chat member permissions, for groups and supergroups. Returned only in [getChat](https://core.telegram.org/bots/api#getchat)."
+                    },
+                    "personal_chat": {
+                        "$ref": "#/components/schemas/Chat",
+                        "description": "Optional. For private chats, the personal channel of the user. Returned only in [getChat](https://core.telegram.org/bots/api#getchat)."
                     },
                     "photo": {
                         "$ref": "#/components/schemas/ChatPhoto",
@@ -1609,7 +1832,7 @@
             },
             "ChatShared": {
                 "additionalProperties": false,
-                "description": "This object contains information about the chat whose identifier was shared with the bot using a [KeyboardButtonRequestChat](https://core.telegram.org/bots/api#keyboardbuttonrequestchat) button.",
+                "description": "This object contains information about a chat that was shared with the bot using a [KeyboardButtonRequestChat](https://core.telegram.org/bots/api#keyboardbuttonrequestchat) button.",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#chatshared"
@@ -1620,10 +1843,25 @@
                         "format": "int64",
                         "type": "integer"
                     },
+                    "photo": {
+                        "description": "Optional. Available sizes of the chat photo, if the photo was requested by the bot",
+                        "items": {
+                            "$ref": "#/components/schemas/PhotoSize"
+                        },
+                        "type": "array"
+                    },
                     "request_id": {
                         "description": "Identifier of the request",
                         "format": "int32",
                         "type": "integer"
+                    },
+                    "title": {
+                        "description": "Optional. Title of the chat, if the title was requested by the bot.",
+                        "type": "string"
+                    },
+                    "username": {
+                        "description": "Optional. Username of the chat, if the username was requested by the bot and available.",
+                        "type": "string"
                     }
                 },
                 "required": [
@@ -4500,6 +4738,10 @@
                         },
                         "type": "array"
                     },
+                    "format": {
+                        "description": "Format of the added sticker, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS animation, “video” for a WEBM video",
+                        "type": "string"
+                    },
                     "keywords": {
                         "description": "Optional. List of 0-20 search keywords for the sticker with total length of up to 64 characters. For “regular” and “custom_emoji” stickers only.",
                         "items": {
@@ -4525,6 +4767,7 @@
                 },
                 "required": [
                     "sticker",
+                    "format",
                     "emoji_list"
                 ],
                 "type": "object"
@@ -4711,7 +4954,7 @@
             },
             "KeyboardButtonRequestChat": {
                 "additionalProperties": false,
-                "description": "This object defines the criteria used to request a suitable chat. The identifier of the selected chat will be shared with the bot when the corresponding button is pressed. [More about requesting chats »](https://core.telegram.org/bots/features#chat-and-user-selection)",
+                "description": "This object defines the criteria used to request a suitable chat. Information about the selected chat will be shared with the bot when the corresponding button is pressed. The bot will be granted requested rights in the сhat if appropriate [More about requesting chats »](https://core.telegram.org/bots/features#chat-and-user-selection)",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#keyboardbuttonrequestchat"
@@ -4746,6 +4989,18 @@
                         "format": "int32",
                         "type": "integer"
                     },
+                    "request_photo": {
+                        "description": "Optional. Pass True to request the chat's photo",
+                        "type": "boolean"
+                    },
+                    "request_title": {
+                        "description": "Optional. Pass True to request the chat's title",
+                        "type": "boolean"
+                    },
+                    "request_username": {
+                        "description": "Optional. Pass True to request the chat's username",
+                        "type": "boolean"
+                    },
                     "user_administrator_rights": {
                         "$ref": "#/components/schemas/ChatAdministratorRights",
                         "description": "Optional. A JSON-serialized object listing the required administrator rights of the user in the chat. The rights must be a superset of bot_administrator_rights. If not specified, no additional restrictions are applied."
@@ -4759,7 +5014,7 @@
             },
             "KeyboardButtonRequestUsers": {
                 "additionalProperties": false,
-                "description": "This object defines the criteria used to request suitable users. The identifiers of the selected users will be shared with the bot when the corresponding button is pressed. [More about requesting users »](https://core.telegram.org/bots/features#chat-and-user-selection)",
+                "description": "This object defines the criteria used to request suitable users. Information about the selected users will be shared with the bot when the corresponding button is pressed. [More about requesting users »](https://core.telegram.org/bots/features#chat-and-user-selection)",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#keyboardbuttonrequestusers"
@@ -4774,6 +5029,18 @@
                         "description": "Signed 32-bit identifier of the request that will be received back in the [UsersShared](https://core.telegram.org/bots/api#usersshared) object. Must be unique within the message",
                         "format": "int32",
                         "type": "integer"
+                    },
+                    "request_name": {
+                        "description": "Optional. Pass True to request the users' first and last name",
+                        "type": "boolean"
+                    },
+                    "request_photo": {
+                        "description": "Optional. Pass True to request the users' photo",
+                        "type": "boolean"
+                    },
+                    "request_username": {
+                        "description": "Optional. Pass True to request the users' username",
+                        "type": "boolean"
                     },
                     "user_is_bot": {
                         "description": "Optional. Pass True to request bots, pass False to request regular users. If not specified, no additional restrictions are applied.",
@@ -5091,6 +5358,10 @@
                         "$ref": "#/components/schemas/ChatBoostAdded",
                         "description": "Optional. Service message: user boosted the chat"
                     },
+                    "business_connection_id": {
+                        "description": "Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.",
+                        "type": "string"
+                    },
                     "caption": {
                         "description": "Optional. Caption for the animation, audio, document, photo, video or voice",
                         "type": "string"
@@ -5227,6 +5498,10 @@
                         "description": "Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group",
                         "type": "boolean"
                     },
+                    "is_from_offline": {
+                        "description": "Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message",
+                        "type": "boolean"
+                    },
                     "is_topic_message": {
                         "description": "Optional. True, if the message is sent to a forum topic",
                         "type": "boolean"
@@ -5332,6 +5607,10 @@
                         "description": "Optional. If the sender of the message boosted the chat, the number of boosts added by the user",
                         "format": "int32",
                         "type": "integer"
+                    },
+                    "sender_business_bot": {
+                        "$ref": "#/components/schemas/User",
+                        "description": "Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account."
                     },
                     "sender_chat": {
                         "$ref": "#/components/schemas/Chat",
@@ -6641,11 +6920,11 @@
                 },
                 "properties": {
                     "allow_sending_without_reply": {
-                        "description": "Optional. Pass True if the message should be sent even if the specified message to be replied to is not found; can be used only for replies in the same chat and forum topic.",
+                        "description": "Optional. Pass True if the message should be sent even if the specified message to be replied to is not found. Always False for replies in another chat or forum topic. Always True for messages sent on behalf of a business account.",
                         "type": "boolean"
                     },
                     "chat_id": {
-                        "description": "Optional. If the message to be replied to is from a different chat, unique identifier for the chat or username of the channel (in the format @channelusername)",
+                        "description": "Optional. If the message to be replied to is from a different chat, unique identifier for the chat or username of the channel (in the format @channelusername). Not supported for messages sent on behalf of a business account.",
                         "oneOf": [
                             {
                                 "format": "int32",
@@ -6721,6 +7000,44 @@
                         "type": "string"
                     }
                 },
+                "type": "object"
+            },
+            "SharedUser": {
+                "additionalProperties": false,
+                "description": "This object contains information about a user that was shared with the bot using a [KeyboardButtonRequestUser](https://core.telegram.org/bots/api#keyboardbuttonrequestuser) button.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#shareduser"
+                },
+                "properties": {
+                    "first_name": {
+                        "description": "Optional. First name of the user, if the name was requested by the bot",
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "description": "Optional. Last name of the user, if the name was requested by the bot",
+                        "type": "string"
+                    },
+                    "photo": {
+                        "description": "Optional. Available sizes of the chat photo, if the photo was requested by the bot",
+                        "items": {
+                            "$ref": "#/components/schemas/PhotoSize"
+                        },
+                        "type": "array"
+                    },
+                    "user_id": {
+                        "description": "Identifier of the shared user. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so 64-bit integers or double-precision float types are safe for storing these identifiers. The bot may not have access to the user and could be unable to use this identifier, unless the user is already known to the bot by some other means.",
+                        "format": "int64",
+                        "type": "integer"
+                    },
+                    "username": {
+                        "description": "Optional. Username of the user, if the username was requested by the bot",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "user_id"
+                ],
                 "type": "object"
             },
             "ShippingAddress": {
@@ -6921,14 +7238,6 @@
                     "url": "https://core.telegram.org/bots/api#stickerset"
                 },
                 "properties": {
-                    "is_animated": {
-                        "description": "True, if the sticker set contains [animated stickers](https://telegram.org/blog/animated-stickers)",
-                        "type": "boolean"
-                    },
-                    "is_video": {
-                        "description": "True, if the sticker set contains [video stickers](https://telegram.org/blog/video-stickers-better-reactions)",
-                        "type": "boolean"
-                    },
                     "name": {
                         "description": "Sticker set name",
                         "type": "string"
@@ -6957,8 +7266,6 @@
                     "name",
                     "title",
                     "sticker_type",
-                    "is_animated",
-                    "is_video",
                     "stickers"
                 ],
                 "type": "object"
@@ -7108,6 +7415,14 @@
                     "url": "https://core.telegram.org/bots/api#update"
                 },
                 "properties": {
+                    "business_connection": {
+                        "$ref": "#/components/schemas/BusinessConnection",
+                        "description": "Optional. The bot was connected to or disconnected from a business account, or a user edited an existing connection with the bot"
+                    },
+                    "business_message": {
+                        "$ref": "#/components/schemas/Message",
+                        "description": "Optional. New non-service message from a connected business account"
+                    },
                     "callback_query": {
                         "$ref": "#/components/schemas/CallbackQuery",
                         "description": "Optional. New incoming callback query"
@@ -7131,6 +7446,14 @@
                     "chosen_inline_result": {
                         "$ref": "#/components/schemas/ChosenInlineResult",
                         "description": "Optional. The result of an [inline](https://core.telegram.org/bots/api#inline-mode) query that was chosen by a user and sent to their chat partner. Please see our documentation on the [feedback collecting](https://core.telegram.org/bots/inline#collecting-feedback) for details on how to enable these updates for your bot."
+                    },
+                    "deleted_business_messages": {
+                        "$ref": "#/components/schemas/BusinessMessagesDeleted",
+                        "description": "Optional. Messages were deleted from a connected business account"
+                    },
+                    "edited_business_message": {
+                        "$ref": "#/components/schemas/Message",
+                        "description": "Optional. New version of a message from a connected business account"
                     },
                     "edited_channel_post": {
                         "$ref": "#/components/schemas/Message",
@@ -7201,6 +7524,10 @@
                 "properties": {
                     "added_to_attachment_menu": {
                         "description": "Optional. True, if this user added the bot to the attachment menu",
+                        "type": "boolean"
+                    },
+                    "can_connect_to_business": {
+                        "description": "Optional. True, if the bot can be connected to a Telegram Business account to receive its messages. Returned only in [getMe](https://core.telegram.org/bots/api#getme).",
                         "type": "boolean"
                     },
                     "can_join_groups": {
@@ -7316,18 +7643,17 @@
                         "format": "int32",
                         "type": "integer"
                     },
-                    "user_ids": {
-                        "description": "Identifiers of the shared users. These numbers may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting them. But they have at most 52 significant bits, so 64-bit integers or double-precision float types are safe for storing these identifiers. The bot may not have access to the users and could be unable to use these identifiers, unless the users are already known to the bot by some other means.",
+                    "users": {
+                        "description": "Information about users shared with the bot.",
                         "items": {
-                            "format": "int64",
-                            "type": "integer"
+                            "$ref": "#/components/schemas/SharedUser"
                         },
                         "type": "array"
                     }
                 },
                 "required": [
                     "request_id",
-                    "user_ids"
+                    "users"
                 ],
                 "type": "object"
             },
@@ -7717,19 +8043,19 @@
             "name": "Generated with `tg-bot-api-spec` tool",
             "url": "https://github.com/alserom/tg-bot-api-spec"
         },
-        "description": "This is a copy of the official [Telegram Bot API docs](https://core.telegram.org/bots/api) page converted to OpenAPI spec.\n\nNote: Despite the fact that Telegram supports four ways of passing parameters in Bot API requests this spec describes only some of them per each method.\nMethods without arguments describe only as 'GET' requests. Methods with 'InputFile' in arguments describe as 'POST' with content type 'multipart/form-data' \u0026 'application/json'. Others - 'POST' with 'application/json' content type.\n\nThe Bot API is an HTTP-based interface created for developers keen on building bots for Telegram.\nTo learn how to create and set up a bot, please consult [Introduction to Bots](https://core.telegram.org/bots) and [Bot FAQ](https://core.telegram.org/bots/faq).\n\n- Release date: February 16, 2024\n- Changelog: [https://core.telegram.org/bots/api-changelog#february-16-2024](https://core.telegram.org/bots/api-changelog#february-16-2024)",
+        "description": "This is a copy of the official [Telegram Bot API docs](https://core.telegram.org/bots/api) page converted to OpenAPI spec.\n\nNote: Despite the fact that Telegram supports four ways of passing parameters in Bot API requests this spec describes only some of them per each method.\nMethods without arguments describe only as 'GET' requests. Methods with 'InputFile' in arguments describe as 'POST' with content type 'multipart/form-data' \u0026 'application/json'. Others - 'POST' with 'application/json' content type.\n\nThe Bot API is an HTTP-based interface created for developers keen on building bots for Telegram.\nTo learn how to create and set up a bot, please consult [Introduction to Bots](https://core.telegram.org/bots) and [Bot FAQ](https://core.telegram.org/bots/faq).\n\n- Release date: March 31, 2024\n- Changelog: [https://core.telegram.org/bots/api-changelog#march-31-2024](https://core.telegram.org/bots/api-changelog#march-31-2024)",
         "license": {
             "name": "Licensed under the MIT License",
             "url": "https://raw.githubusercontent.com/alserom/tg-bot-api-spec/main/LICENSE.md"
         },
         "title": "Telegram Bot API",
-        "version": "7.1"
+        "version": "7.2"
     },
     "openapi": "3.1.0",
     "paths": {
         "/addStickerToSet": {
             "post": {
-                "description": "Use this method to add a new sticker to a set created by the bot. The format of the added sticker must match the format of the other stickers in the set. Emoji sticker sets can have up to 200 stickers. Animated and video sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns True on success.",
+                "description": "Use this method to add a new sticker to a set created by the bot. Emoji sticker sets can have up to 200 stickers. Other sticker sets can have up to 120 stickers. Returns True on success.",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#addstickertoset"
@@ -9342,10 +9668,6 @@
                                         "description": "Pass True if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only",
                                         "type": "boolean"
                                     },
-                                    "sticker_format": {
-                                        "description": "Format of stickers in the set, must be one of “static”, “animated”, “video”",
-                                        "type": "string"
-                                    },
                                     "sticker_type": {
                                         "description": "Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular sticker set is created.",
                                         "type": "string"
@@ -9371,8 +9693,7 @@
                                     "user_id",
                                     "name",
                                     "title",
-                                    "stickers",
-                                    "sticker_format"
+                                    "stickers"
                                 ],
                                 "type": "object"
                             }
@@ -11318,6 +11639,76 @@
                     }
                 },
                 "summary": "Describes `forwardMessages` method",
+                "tags": [
+                    "available methods"
+                ]
+            }
+        },
+        "/getBusinessConnection": {
+            "post": {
+                "description": "Use this method to get information about the connection of the bot with a business account. Returns a [BusinessConnection](https://core.telegram.org/bots/api#businessconnection) object on success.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#getbusinessconnection"
+                },
+                "operationId": "getBusinessConnection",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "additionalProperties": false,
+                                "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "business_connection_id"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "ok": {
+                                            "default": true,
+                                            "type": "boolean"
+                                        },
+                                        "result": {
+                                            "$ref": "#/components/schemas/BusinessConnection"
+                                        }
+                                    },
+                                    "required": [
+                                        "ok",
+                                        "result"
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "4XX": {
+                        "$ref": "#/components/responses/error"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/error"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                },
+                "summary": "Describes `getBusinessConnection` method",
                 "tags": [
                     "available methods"
                 ]
@@ -13369,6 +13760,92 @@
                 ]
             }
         },
+        "/replaceStickerInSet": {
+            "post": {
+                "description": "Use this method to replace an existing sticker in a sticker set with a new one. The method is equivalent to calling [deleteStickerFromSet](https://core.telegram.org/bots/api#deletestickerfromset), then [addStickerToSet](https://core.telegram.org/bots/api#addstickertoset), then [setStickerPositionInSet](https://core.telegram.org/bots/api#setstickerpositioninset). Returns True on success.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#replacestickerinset"
+                },
+                "operationId": "replaceStickerInSet",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "additionalProperties": false,
+                                "properties": {
+                                    "name": {
+                                        "description": "Sticker set name",
+                                        "type": "string"
+                                    },
+                                    "old_sticker": {
+                                        "description": "File identifier of the replaced sticker",
+                                        "type": "string"
+                                    },
+                                    "sticker": {
+                                        "$ref": "#/components/schemas/InputSticker",
+                                        "description": "A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set remains unchanged."
+                                    },
+                                    "user_id": {
+                                        "description": "User identifier of the sticker set owner",
+                                        "format": "int32",
+                                        "type": "integer"
+                                    }
+                                },
+                                "required": [
+                                    "user_id",
+                                    "name",
+                                    "old_sticker",
+                                    "sticker"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "ok": {
+                                            "default": true,
+                                            "type": "boolean"
+                                        },
+                                        "result": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "required": [
+                                        "ok",
+                                        "result"
+                                    ],
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "4XX": {
+                        "$ref": "#/components/responses/error"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/error"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/error"
+                    }
+                },
+                "summary": "Describes `replaceStickerInSet` method",
+                "tags": [
+                    "stickers"
+                ]
+            }
+        },
         "/restrictChatMember": {
             "post": {
                 "description": "Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate administrator rights. Pass True for all permissions to lift restrictions from a user. Returns True on success.",
@@ -13568,6 +14045,10 @@
                                         "description": "Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)",
                                         "type": "string"
                                     },
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "caption": {
                                         "description": "Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities parsing",
                                         "type": "string"
@@ -13623,7 +14104,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -13668,6 +14149,10 @@
                                         "$ref": "#/components/schemas/InputFile",
                                         "description": "Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)"
                                     },
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "caption": {
                                         "description": "Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities parsing",
                                         "type": "string"
@@ -13723,7 +14208,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -13823,6 +14308,10 @@
                                         "description": "Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)",
                                         "type": "string"
                                     },
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "caption": {
                                         "description": "Audio caption, 0-1024 characters after entities parsing",
                                         "type": "string"
@@ -13873,7 +14362,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -13917,6 +14406,10 @@
                                         "$ref": "#/components/schemas/InputFile",
                                         "description": "Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)"
                                     },
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "caption": {
                                         "description": "Audio caption, 0-1024 characters after entities parsing",
                                         "type": "string"
@@ -13967,7 +14460,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -14066,6 +14559,10 @@
                                         "description": "Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for [text messages](https://core.telegram.org/bots/api#sendmessage), upload_photo for [photos](https://core.telegram.org/bots/api#sendphoto), record_video or upload_video for [videos](https://core.telegram.org/bots/api#sendvideo), record_voice or upload_voice for [voice notes](https://core.telegram.org/bots/api#sendvoice), upload_document for [general files](https://core.telegram.org/bots/api#senddocument), choose_sticker for [stickers](https://core.telegram.org/bots/api#sendsticker), find_location for [location data](https://core.telegram.org/bots/api#sendlocation), record_video_note or upload_video_note for [video notes](https://core.telegram.org/bots/api#sendvideonote).",
                                         "type": "string"
                                     },
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the action will be sent",
+                                        "type": "string"
+                                    },
                                     "chat_id": {
                                         "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                                         "oneOf": [
@@ -14150,6 +14647,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "chat_id": {
                                         "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                                         "oneOf": [
@@ -14188,7 +14689,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -14280,6 +14781,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "chat_id": {
                                         "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                                         "oneOf": [
@@ -14310,7 +14815,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -14396,6 +14901,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "caption": {
                                         "description": "Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing",
                                         "type": "string"
@@ -14445,7 +14954,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -14481,6 +14990,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "caption": {
                                         "description": "Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing",
                                         "type": "string"
@@ -14530,7 +15043,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -14621,6 +15134,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "chat_id": {
                                         "description": "Unique identifier for the target chat",
                                         "format": "int32",
@@ -14645,7 +15162,7 @@
                                     },
                                     "reply_markup": {
                                         "$ref": "#/components/schemas/InlineKeyboardMarkup",
-                                        "description": "A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards). If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game."
+                                        "description": "A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards). If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game. Not supported for messages sent on behalf of a business account."
                                     },
                                     "reply_parameters": {
                                         "$ref": "#/components/schemas/ReplyParameters",
@@ -14918,6 +15435,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "chat_id": {
                                         "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                                         "oneOf": [
@@ -14974,7 +15495,7 @@
                                         "type": "integer"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -15062,6 +15583,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "chat_id": {
                                         "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                                         "oneOf": [
@@ -15181,6 +15706,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "chat_id": {
                                         "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                                         "oneOf": [
@@ -15222,7 +15751,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -15313,6 +15842,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "caption": {
                                         "description": "Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing",
                                         "type": "string"
@@ -15362,7 +15895,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -15394,6 +15927,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "caption": {
                                         "description": "Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing",
                                         "type": "string"
@@ -15443,7 +15980,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -15534,6 +16071,10 @@
                                         "description": "True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False",
                                         "type": "boolean"
                                     },
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "chat_id": {
                                         "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                                         "oneOf": [
@@ -15609,7 +16150,7 @@
                                         "type": "string"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -15701,6 +16242,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "chat_id": {
                                         "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                                         "oneOf": [
@@ -15731,7 +16276,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -15752,7 +16297,7 @@
                                         "description": "Description of the message to reply to"
                                     },
                                     "sticker": {
-                                        "description": "Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP or .TGS sticker using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files). Video stickers can only be sent by a file_id. Animated stickers can't be sent via an HTTP URL.",
+                                        "description": "Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files). Video and animated stickers can't be sent via an HTTP URL.",
                                         "type": "string"
                                     }
                                 },
@@ -15767,6 +16312,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "chat_id": {
                                         "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                                         "oneOf": [
@@ -15797,7 +16346,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -15819,7 +16368,7 @@
                                     },
                                     "sticker": {
                                         "$ref": "#/components/schemas/InputFile",
-                                        "description": "Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP or .TGS sticker using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files). Video stickers can only be sent by a file_id. Animated stickers can't be sent via an HTTP URL."
+                                        "description": "Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files). Video and animated stickers can't be sent via an HTTP URL."
                                     }
                                 },
                                 "required": [
@@ -15892,6 +16441,10 @@
                                         "description": "Address of the venue",
                                         "type": "string"
                                     },
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "chat_id": {
                                         "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                                         "oneOf": [
@@ -15944,7 +16497,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -16038,6 +16591,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "caption": {
                                         "description": "Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing",
                                         "type": "string"
@@ -16093,7 +16650,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -16142,6 +16699,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "caption": {
                                         "description": "Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing",
                                         "type": "string"
@@ -16197,7 +16758,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -16301,6 +16862,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "chat_id": {
                                         "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                                         "oneOf": [
@@ -16337,7 +16902,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -16377,6 +16942,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "chat_id": {
                                         "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                                         "oneOf": [
@@ -16413,7 +16982,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -16508,6 +17077,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "caption": {
                                         "description": "Voice message caption, 0-1024 characters after entities parsing",
                                         "type": "string"
@@ -16554,7 +17127,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -16590,6 +17163,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "business_connection_id": {
+                                        "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+                                        "type": "string"
+                                    },
                                     "caption": {
                                         "description": "Voice message caption, 0-1024 characters after entities parsing",
                                         "type": "string"
@@ -16636,7 +17213,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -18330,6 +18907,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "format": {
+                                        "description": "Format of the thumbnail, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS animation, or “video” for a WEBM video",
+                                        "type": "string"
+                                    },
                                     "name": {
                                         "description": "Sticker set name",
                                         "type": "string"
@@ -18346,7 +18927,8 @@
                                 },
                                 "required": [
                                     "name",
-                                    "user_id"
+                                    "user_id",
+                                    "format"
                                 ],
                                 "type": "object"
                             }
@@ -18355,6 +18937,10 @@
                             "schema": {
                                 "additionalProperties": false,
                                 "properties": {
+                                    "format": {
+                                        "description": "Format of the thumbnail, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS animation, or “video” for a WEBM video",
+                                        "type": "string"
+                                    },
                                     "name": {
                                         "description": "Sticker set name",
                                         "type": "string"
@@ -18371,7 +18957,8 @@
                                 },
                                 "required": [
                                     "name",
-                                    "user_id"
+                                    "user_id",
+                                    "format"
                                 ],
                                 "type": "object"
                             }
@@ -19432,7 +20019,7 @@
         },
         "/uploadStickerFile": {
             "post": {
-                "description": "Use this method to upload a file with a sticker for later use in the [createNewStickerSet](https://core.telegram.org/bots/api#createnewstickerset) and [addStickerToSet](https://core.telegram.org/bots/api#addstickertoset) methods (the file can be used multiple times). Returns the uploaded [File](https://core.telegram.org/bots/api#file) on success.",
+                "description": "Use this method to upload a file with a sticker for later use in the [createNewStickerSet](https://core.telegram.org/bots/api#createnewstickerset), [addStickerToSet](https://core.telegram.org/bots/api#addstickertoset), or [replaceStickerInSet](https://core.telegram.org/bots/api#replacestickerinset) methods (the file can be used multiple times). Returns the uploaded [File](https://core.telegram.org/bots/api#file) on success.",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#uploadstickerfile"
