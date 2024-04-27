@@ -5231,10 +5231,10 @@
                 },
                 "oneOf": [
                     {
-                        "$ref": "#/components/schemas/Message"
+                        "$ref": "#/components/schemas/InaccessibleMessage"
                     },
                     {
-                        "$ref": "#/components/schemas/InaccessibleMessage"
+                        "$ref": "#/components/schemas/Message"
                     }
                 ],
                 "type": "object"
