@@ -144,9 +144,294 @@
                 ],
                 "type": "object"
             },
+            "BackgroundFill": {
+                "additionalProperties": false,
+                "description": "This object describes the way a background is filled based on the selected colors. Currently, it can be one of\n\n- [BackgroundFillSolid](https://core.telegram.org/bots/api#backgroundfillsolid)\n- [BackgroundFillGradient](https://core.telegram.org/bots/api#backgroundfillgradient)\n- [BackgroundFillFreeformGradient](https://core.telegram.org/bots/api#backgroundfillfreeformgradient)",
+                "discriminator": {
+                    "mapping": {
+                        "freeform_gradient": "#/components/schemas/BackgroundFillFreeformGradient",
+                        "gradient": "#/components/schemas/BackgroundFillGradient",
+                        "solid": "#/components/schemas/BackgroundFillSolid"
+                    },
+                    "propertyName": "type"
+                },
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#backgroundfill"
+                },
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/BackgroundFillSolid"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BackgroundFillGradient"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BackgroundFillFreeformGradient"
+                    }
+                ],
+                "type": "object"
+            },
+            "BackgroundFillFreeformGradient": {
+                "additionalProperties": false,
+                "description": "The background is a freeform gradient that rotates after every message in the chat.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#backgroundfillfreeformgradient"
+                },
+                "properties": {
+                    "colors": {
+                        "description": "A list of the 3 or 4 base colors that are used to generate the freeform gradient in the RGB24 format",
+                        "items": {
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "type": "array"
+                    },
+                    "type": {
+                        "default": "freeform_gradient",
+                        "description": "Type of the background fill, always “freeform_gradient”",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "type",
+                    "colors"
+                ],
+                "type": "object"
+            },
+            "BackgroundFillGradient": {
+                "additionalProperties": false,
+                "description": "The background is a gradient fill.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#backgroundfillgradient"
+                },
+                "properties": {
+                    "bottom_color": {
+                        "description": "Bottom color of the gradient in the RGB24 format",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "rotation_angle": {
+                        "description": "Clockwise rotation angle of the background fill in degrees; 0-359",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "top_color": {
+                        "description": "Top color of the gradient in the RGB24 format",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "type": {
+                        "default": "gradient",
+                        "description": "Type of the background fill, always “gradient”",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "type",
+                    "top_color",
+                    "bottom_color",
+                    "rotation_angle"
+                ],
+                "type": "object"
+            },
+            "BackgroundFillSolid": {
+                "additionalProperties": false,
+                "description": "The background is filled using the selected color.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#backgroundfillsolid"
+                },
+                "properties": {
+                    "color": {
+                        "description": "The color of the background fill in the RGB24 format",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "type": {
+                        "default": "solid",
+                        "description": "Type of the background fill, always “solid”",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "type",
+                    "color"
+                ],
+                "type": "object"
+            },
+            "BackgroundType": {
+                "additionalProperties": false,
+                "description": "This object describes the type of a background. Currently, it can be one of\n\n- [BackgroundTypeFill](https://core.telegram.org/bots/api#backgroundtypefill)\n- [BackgroundTypeWallpaper](https://core.telegram.org/bots/api#backgroundtypewallpaper)\n- [BackgroundTypePattern](https://core.telegram.org/bots/api#backgroundtypepattern)\n- [BackgroundTypeChatTheme](https://core.telegram.org/bots/api#backgroundtypechattheme)",
+                "discriminator": {
+                    "mapping": {
+                        "chat_theme": "#/components/schemas/BackgroundTypeChatTheme",
+                        "fill": "#/components/schemas/BackgroundTypeFill",
+                        "pattern": "#/components/schemas/BackgroundTypePattern",
+                        "wallpaper": "#/components/schemas/BackgroundTypeWallpaper"
+                    },
+                    "propertyName": "type"
+                },
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#backgroundtype"
+                },
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/BackgroundTypeFill"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BackgroundTypeWallpaper"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BackgroundTypePattern"
+                    },
+                    {
+                        "$ref": "#/components/schemas/BackgroundTypeChatTheme"
+                    }
+                ],
+                "type": "object"
+            },
+            "BackgroundTypeChatTheme": {
+                "additionalProperties": false,
+                "description": "The background is taken directly from a built-in chat theme.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#backgroundtypechattheme"
+                },
+                "properties": {
+                    "theme_name": {
+                        "description": "Name of the chat theme, which is usually an emoji",
+                        "type": "string"
+                    },
+                    "type": {
+                        "default": "chat_theme",
+                        "description": "Type of the background, always “chat_theme”",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "type",
+                    "theme_name"
+                ],
+                "type": "object"
+            },
+            "BackgroundTypeFill": {
+                "additionalProperties": false,
+                "description": "The background is automatically filled based on the selected colors.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#backgroundtypefill"
+                },
+                "properties": {
+                    "dark_theme_dimming": {
+                        "description": "Dimming of the background in dark themes, as a percentage; 0-100",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "fill": {
+                        "$ref": "#/components/schemas/BackgroundFill",
+                        "description": "The background fill"
+                    },
+                    "type": {
+                        "default": "fill",
+                        "description": "Type of the background, always “fill”",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "type",
+                    "fill",
+                    "dark_theme_dimming"
+                ],
+                "type": "object"
+            },
+            "BackgroundTypePattern": {
+                "additionalProperties": false,
+                "description": "The background is a PNG or TGV (gzipped subset of SVG with MIME type “application/x-tgwallpattern”) pattern to be combined with the background fill chosen by the user.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#backgroundtypepattern"
+                },
+                "properties": {
+                    "document": {
+                        "$ref": "#/components/schemas/Document",
+                        "description": "Document with the pattern"
+                    },
+                    "fill": {
+                        "$ref": "#/components/schemas/BackgroundFill",
+                        "description": "The background fill that is combined with the pattern"
+                    },
+                    "intensity": {
+                        "description": "Intensity of the pattern when it is shown above the filled background; 0-100",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "is_inverted": {
+                        "description": "Optional. True, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only",
+                        "type": "boolean"
+                    },
+                    "is_moving": {
+                        "description": "Optional. True, if the background moves slightly when the device is tilted",
+                        "type": "boolean"
+                    },
+                    "type": {
+                        "default": "pattern",
+                        "description": "Type of the background, always “pattern”",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "type",
+                    "document",
+                    "fill",
+                    "intensity"
+                ],
+                "type": "object"
+            },
+            "BackgroundTypeWallpaper": {
+                "additionalProperties": false,
+                "description": "The background is a wallpaper in the JPEG format.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#backgroundtypewallpaper"
+                },
+                "properties": {
+                    "dark_theme_dimming": {
+                        "description": "Dimming of the background in dark themes, as a percentage; 0-100",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "document": {
+                        "$ref": "#/components/schemas/Document",
+                        "description": "Document with the wallpaper"
+                    },
+                    "is_blurred": {
+                        "description": "Optional. True, if the wallpaper is downscaled to fit in a 450x450 square and then box-blurred with radius 12",
+                        "type": "boolean"
+                    },
+                    "is_moving": {
+                        "description": "Optional. True, if the background moves slightly when the device is tilted",
+                        "type": "boolean"
+                    },
+                    "type": {
+                        "default": "wallpaper",
+                        "description": "Type of the background, always “wallpaper”",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "type",
+                    "document",
+                    "dark_theme_dimming"
+                ],
+                "type": "object"
+            },
             "Birthdate": {
                 "additionalProperties": false,
-                "description": "",
+                "description": "Describes the birthdate of a user.",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#birthdate"
@@ -520,7 +805,7 @@
             },
             "BusinessIntro": {
                 "additionalProperties": false,
-                "description": "",
+                "description": "Contains information about the start page settings of a Telegram Business account.",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#businessintro"
@@ -543,7 +828,7 @@
             },
             "BusinessLocation": {
                 "additionalProperties": false,
-                "description": "",
+                "description": "Contains information about the location of a Telegram Business account.",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#businesslocation"
@@ -597,7 +882,7 @@
             },
             "BusinessOpeningHours": {
                 "additionalProperties": false,
-                "description": "",
+                "description": "Describes the opening hours of a business.",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#businessopeninghours"
@@ -623,7 +908,7 @@
             },
             "BusinessOpeningHoursInterval": {
                 "additionalProperties": false,
-                "description": "",
+                "description": "Describes an interval of time during which a business is open.",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#businessopeninghoursinterval"
@@ -707,169 +992,21 @@
                     "url": "https://core.telegram.org/bots/api#chat"
                 },
                 "properties": {
-                    "accent_color_id": {
-                        "description": "Optional. Identifier of the accent color for the chat name and backgrounds of the chat photo, reply header, and link preview. See [accent colors](https://core.telegram.org/bots/api#accent-colors) for more details. Returned only in [getChat](https://core.telegram.org/bots/api#getchat). Always returned in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "format": "int32",
-                        "type": "integer"
-                    },
-                    "active_usernames": {
-                        "description": "Optional. If non-empty, the list of all [active chat usernames](https://telegram.org/blog/topics-in-groups-collectible-usernames#collectible-usernames); for private chats, supergroups and channels. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "items": {
-                            "type": "string"
-                        },
-                        "type": "array"
-                    },
-                    "available_reactions": {
-                        "description": "Optional. List of available reactions allowed in the chat. If omitted, then all [emoji reactions](https://core.telegram.org/bots/api#reactiontypeemoji) are allowed. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "items": {
-                            "$ref": "#/components/schemas/ReactionType"
-                        },
-                        "type": "array"
-                    },
-                    "background_custom_emoji_id": {
-                        "description": "Optional. Custom emoji identifier of emoji chosen by the chat for the reply header and link preview background. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "string"
-                    },
-                    "bio": {
-                        "description": "Optional. Bio of the other party in a private chat. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "string"
-                    },
-                    "birthdate": {
-                        "$ref": "#/components/schemas/Birthdate",
-                        "description": "Optional. For private chats, the date of birth of the user. Returned only in [getChat](https://core.telegram.org/bots/api#getchat)."
-                    },
-                    "business_intro": {
-                        "$ref": "#/components/schemas/BusinessIntro",
-                        "description": "Optional. For private chats with business accounts, the intro of the business. Returned only in [getChat](https://core.telegram.org/bots/api#getchat)."
-                    },
-                    "business_location": {
-                        "$ref": "#/components/schemas/BusinessLocation",
-                        "description": "Optional. For private chats with business accounts, the location of the business. Returned only in [getChat](https://core.telegram.org/bots/api#getchat)."
-                    },
-                    "business_opening_hours": {
-                        "$ref": "#/components/schemas/BusinessOpeningHours",
-                        "description": "Optional. For private chats with business accounts, the opening hours of the business. Returned only in [getChat](https://core.telegram.org/bots/api#getchat)."
-                    },
-                    "can_set_sticker_set": {
-                        "description": "Optional. True, if the bot can change the group sticker set. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "boolean"
-                    },
-                    "custom_emoji_sticker_set_name": {
-                        "description": "Optional. For supergroups, the name of the group's custom emoji sticker set. Custom emoji from this set can be used by all users and bots in the group. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "string"
-                    },
-                    "description": {
-                        "description": "Optional. Description, for groups, supergroups and channel chats. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "string"
-                    },
-                    "emoji_status_custom_emoji_id": {
-                        "description": "Optional. Custom emoji identifier of the emoji status of the chat or the other party in a private chat. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "string"
-                    },
-                    "emoji_status_expiration_date": {
-                        "description": "Optional. Expiration date of the emoji status of the chat or the other party in a private chat, in Unix time, if any. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "format": "int32",
-                        "type": "integer"
-                    },
                     "first_name": {
                         "description": "Optional. First name of the other party in a private chat",
                         "type": "string"
-                    },
-                    "has_aggressive_anti_spam_enabled": {
-                        "description": "Optional. True, if aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "boolean"
-                    },
-                    "has_hidden_members": {
-                        "description": "Optional. True, if non-administrators can only get the list of bots and administrators in the chat. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "boolean"
-                    },
-                    "has_private_forwards": {
-                        "description": "Optional. True, if privacy settings of the other party in the private chat allows to use tg://user?id=\u003cuser_id\u003e links only in chats with the user. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "boolean"
-                    },
-                    "has_protected_content": {
-                        "description": "Optional. True, if messages from the chat can't be forwarded to other chats. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "boolean"
-                    },
-                    "has_restricted_voice_and_video_messages": {
-                        "description": "Optional. True, if the privacy settings of the other party restrict sending voice and video note messages in the private chat. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "boolean"
-                    },
-                    "has_visible_history": {
-                        "description": "Optional. True, if new chat members will have access to old messages; available only to chat administrators. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "boolean"
                     },
                     "id": {
                         "description": "Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.",
                         "format": "int64",
                         "type": "integer"
                     },
-                    "invite_link": {
-                        "description": "Optional. Primary invite link, for groups, supergroups and channel chats. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "string"
-                    },
                     "is_forum": {
                         "description": "Optional. True, if the supergroup chat is a forum (has [topics](https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups) enabled)",
                         "type": "boolean"
                     },
-                    "join_by_request": {
-                        "description": "Optional. True, if all users directly joining the supergroup need to be approved by supergroup administrators. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "boolean"
-                    },
-                    "join_to_send_messages": {
-                        "description": "Optional. True, if users need to join the supergroup before they can send messages. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "boolean"
-                    },
                     "last_name": {
                         "description": "Optional. Last name of the other party in a private chat",
-                        "type": "string"
-                    },
-                    "linked_chat_id": {
-                        "description": "Optional. Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "format": "int32",
-                        "type": "integer"
-                    },
-                    "location": {
-                        "$ref": "#/components/schemas/ChatLocation",
-                        "description": "Optional. For supergroups, the location to which the supergroup is connected. Returned only in [getChat](https://core.telegram.org/bots/api#getchat)."
-                    },
-                    "message_auto_delete_time": {
-                        "description": "Optional. The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "format": "int32",
-                        "type": "integer"
-                    },
-                    "permissions": {
-                        "$ref": "#/components/schemas/ChatPermissions",
-                        "description": "Optional. Default chat member permissions, for groups and supergroups. Returned only in [getChat](https://core.telegram.org/bots/api#getchat)."
-                    },
-                    "personal_chat": {
-                        "$ref": "#/components/schemas/Chat",
-                        "description": "Optional. For private chats, the personal channel of the user. Returned only in [getChat](https://core.telegram.org/bots/api#getchat)."
-                    },
-                    "photo": {
-                        "$ref": "#/components/schemas/ChatPhoto",
-                        "description": "Optional. Chat photo. Returned only in [getChat](https://core.telegram.org/bots/api#getchat)."
-                    },
-                    "pinned_message": {
-                        "$ref": "#/components/schemas/Message",
-                        "description": "Optional. The most recent pinned message (by sending date). Returned only in [getChat](https://core.telegram.org/bots/api#getchat)."
-                    },
-                    "profile_accent_color_id": {
-                        "description": "Optional. Identifier of the accent color for the chat's profile background. See [profile accent colors](https://core.telegram.org/bots/api#profile-accent-colors) for more details. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "format": "int32",
-                        "type": "integer"
-                    },
-                    "profile_background_custom_emoji_id": {
-                        "description": "Optional. Custom emoji identifier of the emoji chosen by the chat for its profile background. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "type": "string"
-                    },
-                    "slow_mode_delay": {
-                        "description": "Optional. For supergroups, the minimum allowed delay between consecutive messages sent by each unprivileged user; in seconds. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "format": "int32",
-                        "type": "integer"
-                    },
-                    "sticker_set_name": {
-                        "description": "Optional. For supergroups, name of group sticker set. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
                         "type": "string"
                     },
                     "title": {
@@ -877,13 +1014,8 @@
                         "type": "string"
                     },
                     "type": {
-                        "description": "Type of chat, can be either “private”, “group”, “supergroup” or “channel”",
+                        "description": "Type of the chat, can be either “private”, “group”, “supergroup” or “channel”",
                         "type": "string"
-                    },
-                    "unrestrict_boost_count": {
-                        "description": "Optional. For supergroups, the minimum number of boosts that a non-administrator user needs to add in order to ignore slow mode and chat permissions. Returned only in [getChat](https://core.telegram.org/bots/api#getchat).",
-                        "format": "int32",
-                        "type": "integer"
                     },
                     "username": {
                         "description": "Optional. Username, for private chats, supergroups and channels if available",
@@ -921,7 +1053,7 @@
                         "type": "boolean"
                     },
                     "can_edit_stories": {
-                        "description": "True, if the administrator can edit stories posted by other users",
+                        "description": "True, if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive",
                         "type": "boolean"
                     },
                     "can_invite_users": {
@@ -977,6 +1109,24 @@
                     "can_post_stories",
                     "can_edit_stories",
                     "can_delete_stories"
+                ],
+                "type": "object"
+            },
+            "ChatBackground": {
+                "additionalProperties": false,
+                "description": "This object represents a chat background.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#chatbackground"
+                },
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/BackgroundType",
+                        "description": "Type of the background"
+                    }
+                },
+                "required": [
+                    "type"
                 ],
                 "type": "object"
             },
@@ -1200,6 +1350,210 @@
                 ],
                 "type": "object"
             },
+            "ChatFullInfo": {
+                "additionalProperties": false,
+                "description": "This object contains full information about a chat.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#chatfullinfo"
+                },
+                "properties": {
+                    "accent_color_id": {
+                        "description": "Identifier of the accent color for the chat name and backgrounds of the chat photo, reply header, and link preview. See [accent colors](https://core.telegram.org/bots/api#accent-colors) for more details.",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "active_usernames": {
+                        "description": "Optional. If non-empty, the list of all [active chat usernames](https://telegram.org/blog/topics-in-groups-collectible-usernames#collectible-usernames); for private chats, supergroups and channels",
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "available_reactions": {
+                        "description": "Optional. List of available reactions allowed in the chat. If omitted, then all [emoji reactions](https://core.telegram.org/bots/api#reactiontypeemoji) are allowed.",
+                        "items": {
+                            "$ref": "#/components/schemas/ReactionType"
+                        },
+                        "type": "array"
+                    },
+                    "background_custom_emoji_id": {
+                        "description": "Optional. Custom emoji identifier of the emoji chosen by the chat for the reply header and link preview background",
+                        "type": "string"
+                    },
+                    "bio": {
+                        "description": "Optional. Bio of the other party in a private chat",
+                        "type": "string"
+                    },
+                    "birthdate": {
+                        "$ref": "#/components/schemas/Birthdate",
+                        "description": "Optional. For private chats, the date of birth of the user"
+                    },
+                    "business_intro": {
+                        "$ref": "#/components/schemas/BusinessIntro",
+                        "description": "Optional. For private chats with business accounts, the intro of the business"
+                    },
+                    "business_location": {
+                        "$ref": "#/components/schemas/BusinessLocation",
+                        "description": "Optional. For private chats with business accounts, the location of the business"
+                    },
+                    "business_opening_hours": {
+                        "$ref": "#/components/schemas/BusinessOpeningHours",
+                        "description": "Optional. For private chats with business accounts, the opening hours of the business"
+                    },
+                    "can_set_sticker_set": {
+                        "description": "Optional. True, if the bot can change the group sticker set",
+                        "type": "boolean"
+                    },
+                    "custom_emoji_sticker_set_name": {
+                        "description": "Optional. For supergroups, the name of the group's custom emoji sticker set. Custom emoji from this set can be used by all users and bots in the group.",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Optional. Description, for groups, supergroups and channel chats",
+                        "type": "string"
+                    },
+                    "emoji_status_custom_emoji_id": {
+                        "description": "Optional. Custom emoji identifier of the emoji status of the chat or the other party in a private chat",
+                        "type": "string"
+                    },
+                    "emoji_status_expiration_date": {
+                        "description": "Optional. Expiration date of the emoji status of the chat or the other party in a private chat, in Unix time, if any",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "first_name": {
+                        "description": "Optional. First name of the other party in a private chat",
+                        "type": "string"
+                    },
+                    "has_aggressive_anti_spam_enabled": {
+                        "description": "Optional. True, if aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators.",
+                        "type": "boolean"
+                    },
+                    "has_hidden_members": {
+                        "description": "Optional. True, if non-administrators can only get the list of bots and administrators in the chat",
+                        "type": "boolean"
+                    },
+                    "has_private_forwards": {
+                        "description": "Optional. True, if privacy settings of the other party in the private chat allows to use tg://user?id=\u003cuser_id\u003e links only in chats with the user",
+                        "type": "boolean"
+                    },
+                    "has_protected_content": {
+                        "description": "Optional. True, if messages from the chat can't be forwarded to other chats",
+                        "type": "boolean"
+                    },
+                    "has_restricted_voice_and_video_messages": {
+                        "description": "Optional. True, if the privacy settings of the other party restrict sending voice and video note messages in the private chat",
+                        "type": "boolean"
+                    },
+                    "has_visible_history": {
+                        "description": "Optional. True, if new chat members will have access to old messages; available only to chat administrators",
+                        "type": "boolean"
+                    },
+                    "id": {
+                        "description": "Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.",
+                        "format": "int64",
+                        "type": "integer"
+                    },
+                    "invite_link": {
+                        "description": "Optional. Primary invite link, for groups, supergroups and channel chats",
+                        "type": "string"
+                    },
+                    "is_forum": {
+                        "description": "Optional. True, if the supergroup chat is a forum (has [topics](https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups) enabled)",
+                        "type": "boolean"
+                    },
+                    "join_by_request": {
+                        "description": "Optional. True, if all users directly joining the supergroup need to be approved by supergroup administrators",
+                        "type": "boolean"
+                    },
+                    "join_to_send_messages": {
+                        "description": "Optional. True, if users need to join the supergroup before they can send messages",
+                        "type": "boolean"
+                    },
+                    "last_name": {
+                        "description": "Optional. Last name of the other party in a private chat",
+                        "type": "string"
+                    },
+                    "linked_chat_id": {
+                        "description": "Optional. Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/ChatLocation",
+                        "description": "Optional. For supergroups, the location to which the supergroup is connected"
+                    },
+                    "max_reaction_count": {
+                        "description": "The maximum number of reactions that can be set on a message in the chat",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "message_auto_delete_time": {
+                        "description": "Optional. The time after which all messages sent to the chat will be automatically deleted; in seconds",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "permissions": {
+                        "$ref": "#/components/schemas/ChatPermissions",
+                        "description": "Optional. Default chat member permissions, for groups and supergroups"
+                    },
+                    "personal_chat": {
+                        "$ref": "#/components/schemas/Chat",
+                        "description": "Optional. For private chats, the personal channel of the user"
+                    },
+                    "photo": {
+                        "$ref": "#/components/schemas/ChatPhoto",
+                        "description": "Optional. Chat photo"
+                    },
+                    "pinned_message": {
+                        "$ref": "#/components/schemas/Message",
+                        "description": "Optional. The most recent pinned message (by sending date)"
+                    },
+                    "profile_accent_color_id": {
+                        "description": "Optional. Identifier of the accent color for the chat's profile background. See [profile accent colors](https://core.telegram.org/bots/api#profile-accent-colors) for more details.",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "profile_background_custom_emoji_id": {
+                        "description": "Optional. Custom emoji identifier of the emoji chosen by the chat for its profile background",
+                        "type": "string"
+                    },
+                    "slow_mode_delay": {
+                        "description": "Optional. For supergroups, the minimum allowed delay between consecutive messages sent by each unprivileged user; in seconds",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "sticker_set_name": {
+                        "description": "Optional. For supergroups, name of the group sticker set",
+                        "type": "string"
+                    },
+                    "title": {
+                        "description": "Optional. Title, for supergroups, channels and group chats",
+                        "type": "string"
+                    },
+                    "type": {
+                        "description": "Type of the chat, can be either “private”, “group”, “supergroup” or “channel”",
+                        "type": "string"
+                    },
+                    "unrestrict_boost_count": {
+                        "description": "Optional. For supergroups, the minimum number of boosts that a non-administrator user needs to add in order to ignore slow mode and chat permissions",
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "username": {
+                        "description": "Optional. Username, for private chats, supergroups and channels if available",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "type",
+                    "accent_color_id",
+                    "max_reaction_count"
+                ],
+                "type": "object"
+            },
             "ChatInviteLink": {
                 "additionalProperties": false,
                 "description": "Represents an invite link for a chat.",
@@ -1392,7 +1746,7 @@
                         "type": "boolean"
                     },
                     "can_edit_stories": {
-                        "description": "True, if the administrator can edit stories posted by other users",
+                        "description": "True, if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive",
                         "type": "boolean"
                     },
                     "can_invite_users": {
@@ -1718,6 +2072,10 @@
                     },
                     "via_chat_folder_invite_link": {
                         "description": "Optional. True, if the user joined the chat via a chat folder invite link",
+                        "type": "boolean"
+                    },
+                    "via_join_request": {
+                        "description": "Optional. True, if the user joined the chat after sending a direct join request and being approved by an administrator",
                         "type": "boolean"
                     }
                 },
@@ -2239,7 +2597,7 @@
             },
             "ForceReply": {
                 "additionalProperties": false,
-                "description": "Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice [privacy mode](https://core.telegram.org/bots/features#privacy-mode).",
+                "description": "Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice [privacy mode](https://core.telegram.org/bots/features#privacy-mode). Not supported in channels and for messages sent on behalf of a Telegram Business account.",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#forcereply"
@@ -2660,7 +3018,7 @@
                 },
                 "properties": {
                     "callback_data": {
-                        "description": "Optional. Data to be sent in a [callback query](https://core.telegram.org/bots/api#callbackquery) to the bot when button is pressed, 1-64 bytes",
+                        "description": "Optional. Data to be sent in a [callback query](https://core.telegram.org/bots/api#callbackquery) to the bot when button is pressed, 1-64 bytes. Not supported for messages sent on behalf of a Telegram Business account.",
                         "type": "string"
                     },
                     "callback_game": {
@@ -2676,15 +3034,15 @@
                         "type": "boolean"
                     },
                     "switch_inline_query": {
-                        "description": "Optional. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted.",
+                        "description": "Optional. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted. Not supported for messages sent on behalf of a Telegram Business account.",
                         "type": "string"
                     },
                     "switch_inline_query_chosen_chat": {
                         "$ref": "#/components/schemas/SwitchInlineQueryChosenChat",
-                        "description": "Optional. If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field"
+                        "description": "Optional. If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field. Not supported for messages sent on behalf of a Telegram Business account."
                     },
                     "switch_inline_query_current_chat": {
-                        "description": "Optional. If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options.",
+                        "description": "Optional. If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options. Not supported in channels and for messages sent on behalf of a Telegram Business account.",
                         "type": "string"
                     },
                     "text": {
@@ -2697,7 +3055,7 @@
                     },
                     "web_app": {
                         "$ref": "#/components/schemas/WebAppInfo",
-                        "description": "Optional. Description of the [Web App](https://core.telegram.org/bots/webapps) that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method [answerWebAppQuery](https://core.telegram.org/bots/api#answerwebappquery). Available only in private chats between a user and the bot."
+                        "description": "Optional. Description of the [Web App](https://core.telegram.org/bots/webapps) that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method [answerWebAppQuery](https://core.telegram.org/bots/api#answerwebappquery). Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a Telegram Business account."
                     }
                 },
                 "required": [
@@ -3700,7 +4058,7 @@
                         "type": "number"
                     },
                     "live_period": {
-                        "description": "Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.",
+                        "description": "Optional. Period in seconds during which the location can be updated, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.",
                         "format": "int32",
                         "type": "integer"
                     },
@@ -4338,7 +4696,7 @@
                         "type": "number"
                     },
                     "live_period": {
-                        "description": "Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.",
+                        "description": "Optional. Period in seconds during which the location can be updated, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.",
                         "format": "int32",
                         "type": "integer"
                     },
@@ -4720,6 +5078,35 @@
                     {
                         "$ref": "#/components/schemas/InputInvoiceMessageContent"
                     }
+                ],
+                "type": "object"
+            },
+            "InputPollOption": {
+                "additionalProperties": false,
+                "description": "This object contains information about one answer option in a poll to send.",
+                "externalDocs": {
+                    "description": "See official spec",
+                    "url": "https://core.telegram.org/bots/api#inputpolloption"
+                },
+                "properties": {
+                    "text": {
+                        "description": "Option text, 1-100 characters",
+                        "type": "string"
+                    },
+                    "text_entities": {
+                        "description": "Optional. A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of text_parse_mode",
+                        "items": {
+                            "$ref": "#/components/schemas/MessageEntity"
+                        },
+                        "type": "array"
+                    },
+                    "text_parse_mode": {
+                        "description": "Optional. Mode for parsing entities in the text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details. Currently, only custom emoji entities are allowed",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "text"
                 ],
                 "type": "object"
             },
@@ -5231,10 +5618,10 @@
                 },
                 "oneOf": [
                     {
-                        "$ref": "#/components/schemas/Message"
+                        "$ref": "#/components/schemas/InaccessibleMessage"
                     },
                     {
-                        "$ref": "#/components/schemas/InaccessibleMessage"
+                        "$ref": "#/components/schemas/Message"
                     }
                 ],
                 "type": "object"
@@ -5380,6 +5767,10 @@
                     "chat": {
                         "$ref": "#/components/schemas/Chat",
                         "description": "Chat the message belongs to"
+                    },
+                    "chat_background_set": {
+                        "$ref": "#/components/schemas/ChatBackground",
+                        "description": "Optional. Service message: chat background set"
                     },
                     "chat_shared": {
                         "$ref": "#/components/schemas/ChatShared",
@@ -6592,6 +6983,13 @@
                         "description": "Poll question, 1-300 characters",
                         "type": "string"
                     },
+                    "question_entities": {
+                        "description": "Optional. Special entities that appear in the question. Currently, only custom emoji entities are allowed in poll questions",
+                        "items": {
+                            "$ref": "#/components/schemas/MessageEntity"
+                        },
+                        "type": "array"
+                    },
                     "total_voter_count": {
                         "description": "Total number of users that voted in the poll",
                         "format": "int32",
@@ -6660,6 +7058,13 @@
                     "text": {
                         "description": "Option text, 1-100 characters",
                         "type": "string"
+                    },
+                    "text_entities": {
+                        "description": "Optional. Special entities that appear in the option text. Currently, only custom emoji entities are allowed in poll option texts",
+                        "items": {
+                            "$ref": "#/components/schemas/MessageEntity"
+                        },
+                        "type": "array"
                     },
                     "voter_count": {
                         "description": "Number of users that voted for this option",
@@ -6847,7 +7252,7 @@
             },
             "ReplyKeyboardMarkup": {
                 "additionalProperties": false,
-                "description": "This object represents a [custom keyboard](https://core.telegram.org/bots/features#keyboards) with reply options (see [Introduction to bots](https://core.telegram.org/bots/features#keyboards) for details and examples).",
+                "description": "This object represents a [custom keyboard](https://core.telegram.org/bots/features#keyboards) with reply options (see [Introduction to bots](https://core.telegram.org/bots/features#keyboards) for details and examples). Not supported in channels and for messages sent on behalf of a Telegram Business account.",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#replykeyboardmarkup"
@@ -6891,7 +7296,7 @@
             },
             "ReplyKeyboardRemove": {
                 "additionalProperties": false,
-                "description": "Upon receiving a message with this object, Telegram clients will remove the current custom keyboard and display the default letter-keyboard. By default, custom keyboards are displayed until a new keyboard is sent by a bot. An exception is made for one-time keyboards that are hidden immediately after the user presses a button (see [ReplyKeyboardMarkup](https://core.telegram.org/bots/api#replykeyboardmarkup)).",
+                "description": "Upon receiving a message with this object, Telegram clients will remove the current custom keyboard and display the default letter-keyboard. By default, custom keyboards are displayed until a new keyboard is sent by a bot. An exception is made for one-time keyboards that are hidden immediately after the user presses a button (see [ReplyKeyboardMarkup](https://core.telegram.org/bots/api#replykeyboardmarkup)). Not supported in channels and for messages sent on behalf of a Telegram Business account.",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#replykeyboardremove"
@@ -8043,13 +8448,13 @@
             "name": "Generated with `tg-bot-api-spec` tool",
             "url": "https://github.com/alserom/tg-bot-api-spec"
         },
-        "description": "This is a copy of the official [Telegram Bot API docs](https://core.telegram.org/bots/api) page converted to OpenAPI spec.\n\nNote: Despite the fact that Telegram supports four ways of passing parameters in Bot API requests this spec describes only some of them per each method.\nMethods without arguments describe only as 'GET' requests. Methods with 'InputFile' in arguments describe as 'POST' with content type 'multipart/form-data' \u0026 'application/json'. Others - 'POST' with 'application/json' content type.\n\nThe Bot API is an HTTP-based interface created for developers keen on building bots for Telegram.\nTo learn how to create and set up a bot, please consult [Introduction to Bots](https://core.telegram.org/bots) and [Bot FAQ](https://core.telegram.org/bots/faq).\n\n- Release date: March 31, 2024\n- Changelog: [https://core.telegram.org/bots/api-changelog#march-31-2024](https://core.telegram.org/bots/api-changelog#march-31-2024)",
+        "description": "This is a copy of the official [Telegram Bot API docs](https://core.telegram.org/bots/api) page converted to OpenAPI spec.\n\nNote: Despite the fact that Telegram supports four ways of passing parameters in Bot API requests this spec describes only some of them per each method.\nMethods without arguments describe only as 'GET' requests. Methods with 'InputFile' in arguments describe as 'POST' with content type 'multipart/form-data' \u0026 'application/json'. Others - 'POST' with 'application/json' content type.\n\nThe Bot API is an HTTP-based interface created for developers keen on building bots for Telegram.\nTo learn how to create and set up a bot, please consult [Introduction to Bots](https://core.telegram.org/bots) and [Bot FAQ](https://core.telegram.org/bots/faq).\n\n- Release date: May 6, 2024\n- Changelog: [https://core.telegram.org/bots/api-changelog#may-6-2024](https://core.telegram.org/bots/api-changelog#may-6-2024)",
         "license": {
             "name": "Licensed under the MIT License",
             "url": "https://raw.githubusercontent.com/alserom/tg-bot-api-spec/main/LICENSE.md"
         },
         "title": "Telegram Bot API",
-        "version": "7.2"
+        "version": "7.3"
     },
     "openapi": "3.1.0",
     "paths": {
@@ -9102,7 +9507,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -10947,6 +11352,11 @@
                                         "format": "float",
                                         "type": "number"
                                     },
+                                    "live_period": {
+                                        "description": "New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current live_period by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then live_period remains unchanged",
+                                        "format": "int32",
+                                        "type": "integer"
+                                    },
                                     "longitude": {
                                         "description": "Longitude of new location",
                                         "format": "float",
@@ -11716,7 +12126,7 @@
         },
         "/getChat": {
             "post": {
-                "description": "Use this method to get up to date information about the chat. Returns a [Chat](https://core.telegram.org/bots/api#chat) object on success.",
+                "description": "Use this method to get up-to-date information about the chat. Returns a [ChatFullInfo](https://core.telegram.org/bots/api#chatfullinfo) object on success.",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#getchat"
@@ -11763,7 +12173,7 @@
                                             "type": "boolean"
                                         },
                                         "result": {
-                                            "$ref": "#/components/schemas/Chat"
+                                            "$ref": "#/components/schemas/ChatFullInfo"
                                         }
                                     },
                                     "required": [
@@ -13485,7 +13895,7 @@
                                         "type": "boolean"
                                     },
                                     "can_edit_stories": {
-                                        "description": "Pass True if the administrator can edit stories posted by other users",
+                                        "description": "Pass True if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive",
                                         "type": "boolean"
                                     },
                                     "can_invite_users": {
@@ -14104,7 +14514,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -14208,7 +14618,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -14362,7 +14772,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -14460,7 +14870,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -14689,7 +15099,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -14815,7 +15225,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -14954,7 +15364,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -15043,7 +15453,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -15162,7 +15572,7 @@
                                     },
                                     "reply_markup": {
                                         "$ref": "#/components/schemas/InlineKeyboardMarkup",
-                                        "description": "A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards). If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game. Not supported for messages sent on behalf of a business account."
+                                        "description": "A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards). If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game."
                                     },
                                     "reply_parameters": {
                                         "$ref": "#/components/schemas/ReplyParameters",
@@ -15471,7 +15881,7 @@
                                         "type": "number"
                                     },
                                     "live_period": {
-                                        "description": "Period in seconds for which the location will be updated (see [Live Locations](https://telegram.org/blog/live-locations), should be between 60 and 86400.",
+                                        "description": "Period in seconds during which the location will be updated (see [Live Locations](https://telegram.org/blog/live-locations), should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.",
                                         "format": "int32",
                                         "type": "integer"
                                     },
@@ -15495,7 +15905,7 @@
                                         "type": "integer"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -15751,7 +16161,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -15895,7 +16305,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -15980,7 +16390,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -16106,7 +16516,7 @@
                                         "type": "string"
                                     },
                                     "explanation_entities": {
-                                        "description": "A JSON-serialized list of special entities that appear in the poll explanation, which can be specified instead of parse_mode",
+                                        "description": "A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of explanation_parse_mode",
                                         "items": {
                                             "$ref": "#/components/schemas/MessageEntity"
                                         },
@@ -16135,9 +16545,9 @@
                                         "type": "integer"
                                     },
                                     "options": {
-                                        "description": "A JSON-serialized list of answer options, 2-10 strings 1-100 characters each",
+                                        "description": "A JSON-serialized list of 2-10 answer options",
                                         "items": {
-                                            "type": "string"
+                                            "$ref": "#/components/schemas/InputPollOption"
                                         },
                                         "type": "array"
                                     },
@@ -16149,8 +16559,19 @@
                                         "description": "Poll question, 1-300 characters",
                                         "type": "string"
                                     },
+                                    "question_entities": {
+                                        "description": "A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of question_parse_mode",
+                                        "items": {
+                                            "$ref": "#/components/schemas/MessageEntity"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "question_parse_mode": {
+                                        "description": "Mode for parsing entities in the question. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details. Currently, only custom emoji entities are allowed",
+                                        "type": "string"
+                                    },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -16276,7 +16697,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -16346,7 +16767,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -16497,7 +16918,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -16650,7 +17071,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -16758,7 +17179,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -16902,7 +17323,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -16982,7 +17403,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -17065,7 +17486,7 @@
         },
         "/sendVoice": {
             "post": {
-                "description": "Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS (other formats may be sent as [Audio](https://core.telegram.org/bots/api#audio) or [Document](https://core.telegram.org/bots/api#document)). On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.",
+                "description": "Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS, or in .MP3 format, or in .M4A format (other formats may be sent as [Audio](https://core.telegram.org/bots/api#audio) or [Document](https://core.telegram.org/bots/api#document)). On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.",
                 "externalDocs": {
                     "description": "See official spec",
                     "url": "https://core.telegram.org/bots/api#sendvoice"
@@ -17127,7 +17548,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
@@ -17213,7 +17634,7 @@
                                         "type": "boolean"
                                     },
                                     "reply_markup": {
-                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account.",
+                                        "description": "Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user",
                                         "oneOf": [
                                             {
                                                 "$ref": "#/components/schemas/InlineKeyboardMarkup"
