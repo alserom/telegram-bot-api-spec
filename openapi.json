@@ -1464,7 +1464,7 @@
                         "type": "boolean"
                     },
                     "join_by_request": {
-                        "description": "Optional. True, if all users directly joining the supergroup need to be approved by supergroup administrators",
+                        "description": "Optional. True, if all users directly joining the supergroup without using an invite link need to be approved by supergroup administrators",
                         "type": "boolean"
                     },
                     "join_to_send_messages": {
@@ -2075,7 +2075,7 @@
                         "type": "boolean"
                     },
                     "via_join_request": {
-                        "description": "Optional. True, if the user joined the chat after sending a direct join request and being approved by an administrator",
+                        "description": "Optional. True, if the user joined the chat after sending a direct join request without using an invite link and being approved by an administrator",
                         "type": "boolean"
                     }
                 },
@@ -5618,10 +5618,10 @@
                 },
                 "oneOf": [
                     {
-                        "$ref": "#/components/schemas/InaccessibleMessage"
+                        "$ref": "#/components/schemas/Message"
                     },
                     {
-                        "$ref": "#/components/schemas/Message"
+                        "$ref": "#/components/schemas/InaccessibleMessage"
                     }
                 ],
                 "type": "object"
@@ -7826,7 +7826,7 @@
                     },
                     "business_message": {
                         "$ref": "#/components/schemas/Message",
-                        "description": "Optional. New non-service message from a connected business account"
+                        "description": "Optional. New message from a connected business account"
                     },
                     "callback_query": {
                         "$ref": "#/components/schemas/CallbackQuery",
